@@ -95,6 +95,22 @@ jobs:
       - codecov/upload:
           file: ./coverage/lcov.info
 
+  build:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Build TypeScript code
+          command: npm run build
+      - persist_to_workspace:
+          root: ~/repo
+          <<: *whitelist
+      - store_test_results:
+          path: reports
+      - store_artifacts:
+          path: reports
+
   release:
     <<: *defaults
     steps:
