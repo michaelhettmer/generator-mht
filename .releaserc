@@ -1,0 +1,36 @@
+{
+    "branches": [
+        "master",
+        "next"
+    ],
+    "plugins": [
+        [
+            "@semantic-release/commit-analyzer",
+            {
+                "preset": "conventionalcommits"
+            }
+        ],
+        "@semantic-release/release-notes-generator",
+        "@semantic-release/changelog",
+        "@semantic-release/npm",
+        [
+            "@semantic-release/git",
+            {
+                "assets": [
+                    "package.json"
+                ]
+            }
+        ],
+        [
+            "@semantic-release/github",
+            {
+                "assets": [
+                    "generators/*"
+                ],
+                "assignees": [
+                    "MichaelHettmer"
+                ]
+            }
+        ]
+    ]
+}

@@ -1,0 +1,6 @@
+coverage
+/generators
+
+# eslint ignores hidden files by default
+!.*
+**/node_modules
