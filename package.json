@@ -24,7 +24,7 @@
         "build": "tsc",
         "build:watch": "npm run build --watch",
         "link": "npm link",
-        "start": "npm run build && npm link && yo mht-latex",
+        "start": "npm run build && npm link && yo mht",
         "lint": "eslint . --ext '.js,.jsx,.ts,.tsx,.json,.jsonc'",
         "lint:ci": "yarn lint --format junit --output-file ./reports/eslint/results.xml",
         "lint:fix": "yarn lint --fix",
