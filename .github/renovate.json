@@ -10,5 +10,11 @@
         ":enableVulnerabilityAlertsWithLabel(vulnerability)",
         ":renovatePrefix",
         ":rebaseStalePrs"
+    ],
+    "packageRules": [
+        {
+            "packageNames": ["gulp-rename"],
+            "enabled": false
+        }
     ]
 }

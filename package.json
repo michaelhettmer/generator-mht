@@ -38,6 +38,7 @@
         "validate": "npm-run-all lint test"
     },
     "dependencies": {
+        "gulp-rename": "1.2.2",
         "lodash.kebabcase": "4.1.1",
         "yeoman-generator": "4.5.0"
     },
@@ -46,6 +47,7 @@
         "@commitlint/config-conventional": "8.3.4",
         "@semantic-release/changelog": "5.0.0",
         "@semantic-release/git": "9.0.0",
+        "@types/gulp-rename": "0.0.33",
         "@types/jest": "25.1.2",
         "@types/lodash.kebabcase": "4.1.6",
         "@types/yeoman-generator": "3.1.4",
@@ -53,7 +55,7 @@
         "@typescript-eslint/eslint-plugin": "2.19.0",
         "@typescript-eslint/parser": "2.19.0",
         "commitlint-circle": "1.0.0",
-        "copyfiles": "^2.2.0",
+        "copyfiles": "2.2.0",
         "eslint": "6.8.0",
         "eslint-config-prettier": "6.10.0",
         "eslint-plugin-json": "2.0.1",
@@ -66,7 +68,7 @@
         "nodemon": "2.0.2",
         "npm-run-all": "4.1.5",
         "prettier": "1.19.1",
-        "rimraf": "^3.0.1",
+        "rimraf": "3.0.1",
         "semantic-release": "17.0.2",
         "ts-jest": "25.2.0",
         "typescript": "3.7.5",
