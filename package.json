@@ -24,7 +24,7 @@
         "copy": "rimraf \"generators/**/templates\" && copyfiles --all --up 2 \"src/generators/**/templates/**/*\" generators",
         "build:ts": "tsc",
         "build": "npm-run-all build:ts copy",
-        "build:watch": "chokidar \"src/**/*\" -c \"npm run build\"",
+        "build:watch": "chokidar --initial --verbose \"src/**/*\" -c \"npm run build\"",
         "link": "npm link",
         "start": "npm run build && npm link && yo mht",
         "lint": "eslint . --ext '.js,.jsx,.ts,.tsx,.json,.jsonc'",
