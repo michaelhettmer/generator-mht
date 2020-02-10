@@ -1,6 +1,6 @@
 variables:
-  INPUT_FILE: "document.tex"
-  OUTPUT_FILE: "out/document"
+  INPUT_FILE: '<%= document %>.tex'
+  OUTPUT_FILE: '<%= outDirectory %>/<%= document %>'
 
 stages:
   - test
