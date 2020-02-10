@@ -1,19 +1,33 @@
 import Generator from 'yeoman-generator';
-import kebabCase from 'lodash.kebabcase';
+import yeoman, { GeneratorMeta } from 'yeoman-environment';
+
+const env = yeoman.createEnv();
 
 export default class extends Generator {
-    constructor(args: string | string[], options: {}) {
-        super(args, options);
-    }
+    async prompting() {
+        const lookupAsync = () => {
+            return new Promise<{ [namespace: string]: GeneratorMeta }>((resolve, reject) => {
+                env.lookup(err => {
+                    if (err) return reject(err);
+                    resolve(env.getGeneratorsMeta());
+                });
+            });
+        };
+        const generatorsMeta = await lookupAsync();
+        const generators = Object.keys(generatorsMeta)
+            .filter(g => g.startsWith('mht:') && !g.endsWith('app'))
+            .map(g => g.slice(4));
 
-    init() {
-        return this.prompt([
+        const answers = await this.prompt([
             {
-                name: 'moduleName',
-                message: 'What do you want to name your module?',
-                default: this.appname.replace(/\s/g, '-'),
-                filter: x => kebabCase(x).toLowerCase(),
+                name: 'generator',
+                message: 'Which generator do you want to start?',
+                type: 'list',
+                choices: generators,
             },
         ]);
+
+        process.env.NODE_ENV !== 'test' &&
+            env.run(`mht:${answers.generator}`, (err: null | Error) => console.log('done', err ?? 'without an error'));
     }
 }
