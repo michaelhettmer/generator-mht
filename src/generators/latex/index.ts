@@ -1,8 +1,22 @@
 import Generator from 'yeoman-generator';
 
+const CIProviders = ['circleci', 'gitlab'] as const;
+type CIProvider = typeof CIProviders[number];
+
+interface Answers extends Generator.Answers {
+    vscode?: boolean;
+    ci?: CIProvider;
+}
+
 export default class extends Generator {
+    public answers: Answers = {};
+
+    constructor(args: string | string[], opts: {}) {
+        super(args, opts);
+    }
+
     async prompting() {
-        return this.prompt([
+        this.answers = await this.prompt<Answers>([
             {
                 name: 'vscode',
                 message: 'Do you use VSCode?',
@@ -11,11 +25,11 @@ export default class extends Generator {
                 store: true,
             },
             {
-                name: 'vscodeContainer',
-                message: 'Do you need a devcontainer environment for VSCode?',
+                name: 'ci',
+                message: 'Do you want to use a CI provider?',
                 default: true,
-                type: 'confirm',
-                when: ({ vscode }) => vscode,
+                type: 'list',
+                choices: CIProviders,
                 store: true,
             },
         ]);
@@ -25,10 +39,15 @@ export default class extends Generator {
         const cp = (from: string, to: string = from, context: { [key: string]: string } = {}) =>
             this.fs.copyTpl(this.templatePath(from), this.destinationPath(to), context);
 
-        cp('.devcontainer');
-        cp('.vscode');
-        cp('.gitignore');
-        cp('.gitlab-ci.yml');
+        if (this.answers.vscode) {
+            cp('.devcontainer');
+            cp('.vscode');
+        }
+
+        if (this.answers.ci === 'gitlab') {
+            cp('.gitignore');
+            cp('.gitlab-ci.yml');
+        }
     }
 
     installing() {
