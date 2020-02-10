@@ -39,7 +39,7 @@
     },
     "dependencies": {
         "lodash.kebabcase": "4.1.1",
-        "yeoman-environment": "^2.7.0",
+        "yeoman-environment": "2.7.0",
         "yeoman-generator": "4.5.0"
     },
     "devDependencies": {
@@ -49,12 +49,12 @@
         "@semantic-release/git": "9.0.0",
         "@types/jest": "25.1.2",
         "@types/lodash.kebabcase": "4.1.6",
-        "@types/yeoman-environment": "^2.3.2",
+        "@types/yeoman-environment": "2.3.2",
         "@types/yeoman-generator": "3.1.4",
         "@types/yeoman-test": "2.0.3",
         "@typescript-eslint/eslint-plugin": "2.19.2",
         "@typescript-eslint/parser": "2.19.2",
-        "chokidar-cli": "^2.1.0",
+        "chokidar-cli": "2.1.0",
         "commitlint-circle": "1.0.0",
         "copyfiles": "2.2.0",
         "eslint": "6.8.0",
