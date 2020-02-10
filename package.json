@@ -22,8 +22,8 @@
     "main": "generators/app/index.js",
     "scripts": {
         "copy": "rimraf \"generators/**/templates\" && copyfiles --all --up 2 \"src/generators/**/templates/**/*\" generators",
-        "build": "npm-run-all build:ts copy",
         "build:ts": "tsc",
+        "build": "npm-run-all build:ts copy",
         "build:watch": "nodemon --watch src --ext \"*\" --exec npm run build",
         "link": "npm link",
         "start": "npm run build && npm link && yo mht",
@@ -40,6 +40,7 @@
     "dependencies": {
         "gulp-rename": "1.2.2",
         "lodash.kebabcase": "4.1.1",
+        "yeoman-environment": "^2.7.0",
         "yeoman-generator": "4.5.0"
     },
     "devDependencies": {
@@ -50,6 +51,7 @@
         "@types/gulp-rename": "0.0.33",
         "@types/jest": "25.1.2",
         "@types/lodash.kebabcase": "4.1.6",
+        "@types/yeoman-environment": "^2.3.2",
         "@types/yeoman-generator": "3.1.4",
         "@types/yeoman-test": "2.0.3",
         "@typescript-eslint/eslint-plugin": "2.19.0",
