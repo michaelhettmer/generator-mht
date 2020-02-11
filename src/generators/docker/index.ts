@@ -68,7 +68,7 @@ export default class extends Generator {
                 },
                 {
                     name: 'authorName',
-                    message: `What is your name on ${this.answers.repo}?`,
+                    message: `What is your username in this repository ?`,
                     default: 'MichaelHettmer',
                     store: true,
                 },
@@ -100,8 +100,11 @@ export default class extends Generator {
         const cp = (from: string, to: string = from) =>
             this.fs.copyTpl(this.templatePath(from), this.destinationPath(to), context);
 
-        cp('Dockerfile');
         cp('.gitignore');
+        cp('.npmrc');
+        cp('.releaserc');
+        cp('Dockerfile');
+        cp('package.json');
 
         if (this.answers.vscode) cp('.vscode');
 
@@ -111,5 +114,6 @@ export default class extends Generator {
 
     installing() {
         this.spawnCommand('git', ['init']);
+        this.npmInstall();
     }
 }
