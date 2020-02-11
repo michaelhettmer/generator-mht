@@ -1,17 +1,27 @@
 import Generator from 'yeoman-generator';
+import kebabCase from 'lodash.kebabcase';
 
-const CIProviders = ['gitlab', 'circleci', 'no'] as const;
+const CIProviders = ['GitLab', 'CircleCI', 'no'] as const;
 type CIProvider = typeof CIProviders[number];
 
+const Repositories = ['GitLab', 'GitHub'] as const;
+type Repository = typeof Repositories[number];
+
 interface Answers extends Generator.Answers {
+    packageName: string;
+    authorName: string;
     vscode: boolean;
+    repo: Repository;
     ci: CIProvider;
 }
 
 export default class extends Generator {
     public answers: Answers = {
+        packageName: kebabCase(this.appname.replace(/\s/g, '-')).toLowerCase(),
+        authorName: 'MichaelHettmer',
         vscode: true,
-        ci: 'gitlab',
+        repo: 'GitLab',
+        ci: 'GitLab',
     };
 
     constructor(args: string | string[], opts: {}) {
@@ -30,11 +40,32 @@ export default class extends Generator {
 
     async prompting() {
         if (this.options.oss) {
-            this.answers.ci = 'circleci';
+            this.answers.ci = 'CircleCI';
+            this.answers.repo = 'GitHub';
         } else if (this.options.private) {
             // default config is already correct
         } else {
             this.answers = await this.prompt<Answers>([
+                {
+                    name: 'packageName',
+                    message: 'What do you want to name your module?',
+                    default: this.appname.replace(/\s/g, '-'),
+                    filter: x => kebabCase(x).toLowerCase(),
+                },
+                {
+                    name: 'repo',
+                    message: 'Select a repository provider',
+                    default: this.answers.repo,
+                    type: 'list',
+                    choices: Repositories,
+                    store: true,
+                },
+                {
+                    name: 'authorName',
+                    message: `What is your name on ${this.answers.repo}?`,
+                    default: this.appname.replace(/\s/g, '-'),
+                    filter: x => kebabCase(x).toLowerCase(),
+                },
                 {
                     name: 'vscode',
                     message: 'Do you use VSCode?',
@@ -62,13 +93,10 @@ export default class extends Generator {
         cp('Dockerfile');
         cp('.gitignore');
 
-        if (this.answers.vscode) {
-            cp('.vscode');
-        }
+        if (this.answers.vscode) cp('.vscode');
 
-        if (this.answers.ci === 'gitlab') {
-            cp('.gitlab-ci.yml');
-        }
+        if (this.answers.ci === 'GitLab') cp('.gitlab-ci.yml');
+        else if (this.answers.ci === 'CircleCI') cp('.circleci');
     }
 
     installing() {
