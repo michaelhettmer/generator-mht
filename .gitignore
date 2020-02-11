@@ -108,3 +108,6 @@ dist
 
 # yeoman typescript generated generators
 /generators
+
+# tmp directory to test generator scaffolding
+tmp
