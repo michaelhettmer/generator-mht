@@ -13,7 +13,7 @@
 ## Running without an installation
 
 ```sh
-npx -p yo -p generator-mht -c 'yo mht-latex'
+npx -p yo -p generator-mht -c 'yo mht'
 ```
 
 ## Installation
@@ -25,5 +25,5 @@ npm install -g generator-mht yo
 ## Usage
 
 ```sh
-yo mht-latex
+yo mht
 ```
