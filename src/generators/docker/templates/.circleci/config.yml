@@ -1,0 +1,22 @@
+version: 2.1
+
+orbs:
+    docker: circleci/docker@0.5.20
+
+jobs:
+    checkout:
+        docker:
+            - image: circleci/node:12.15.0
+        steps:
+            - checkout
+            - persist_to_workspace:
+                  root: $CIRCLE_WORKING_DIRECTORY
+                  paths:
+                      - .
+
+workflows:
+    build:
+        jobs:
+            - checkout
+            - docker/hadolint:
+                  dockerfile: Dockerfile
