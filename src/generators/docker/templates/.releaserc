@@ -12,7 +12,7 @@
         ],
         "@semantic-release/release-notes-generator",
         "@semantic-release/changelog",
-        "@semantic-release/npm",
+        "semantic-release-docker",
         [
             "@semantic-release/git",
             {
@@ -25,13 +25,16 @@
         [
             "@semantic-release/github",
             {
-                "assets": [
-                    "generators/*"
-                ],
                 "assignees": [
-                    "MichaelHettmer"
+                    "<%= authorName %>"
                 ]
             }
         ]
+    ],
+    "publish": [
+        {
+            "path": "semantic-release-docker",
+            "name": "<%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %>"
+        }
     ]
 }

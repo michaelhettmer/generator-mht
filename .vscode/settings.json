@@ -14,5 +14,7 @@
     "jest.showCoverageOnLoad": true,
     "jest.enableCodeLens": false,
     "git.inputValidationLength": 72,
-    "git.inputValidation": "warn"
+    "git.inputValidation": "warn",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
 }
