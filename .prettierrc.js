@@ -9,13 +9,13 @@ module.exports = {
         {
             files: '*.yml',
             options: {
-                tabWidth: 2,
+                tabWidth: 4,
             },
         },
         {
             files: '*.yaml',
             options: {
-                tabWidth: 2,
+                tabWidth: 4,
             },
         },
     ],
