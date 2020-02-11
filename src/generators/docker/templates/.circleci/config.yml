@@ -9,14 +9,44 @@ jobs:
             - image: circleci/node:12.15.0
         steps:
             - checkout
+            - restore_cache:
+                  keys:
+                      - v1-dependencies-{{ checksum "package.json" }}
+                      - v1-dependencies-
+            - run:
+                  name: Install v1-dependencies
+                  command: npm ci
+            - save_cache:
+                  paths:
+                      - node_modules
+                  key: v1-dependencies-{{ checksum "package.json" }}
             - persist_to_workspace:
                   root: $CIRCLE_WORKING_DIRECTORY
                   paths:
                       - .
+
+    release:
+        docker:
+            - image: circlecI/node:12.15.0
+        steps:
+            - attach_workspace:
+                  at: $CIRCLE_WORKING_DIRECTORY
+            - setup_remote_docker:
+                  docker_layer_caching: true
+            - run: docker build -t <%= authorName %>/<%= moduleName %> .
+            - run: npx semantic-release
 
 workflows:
     build:
         jobs:
             - checkout
             - docker/hadolint:
+                  requires:
+                      - checkout
                   dockerfile: Dockerfile
+            - release:
+                  requires:
+                      - docker/hadolint
+                  filters:
+                      branches:
+                          only: master

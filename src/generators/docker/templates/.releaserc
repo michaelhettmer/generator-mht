@@ -30,5 +30,11 @@
                 ]
             }
         ]
+    ],
+    "publish": [
+        {
+            "path": "semantic-release-docker",
+            "name": "<%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %>"
+        }
     ]
 }
