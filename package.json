@@ -35,7 +35,8 @@
         "test": "jest",
         "test:coverage": "yarn test --coverage --watchAll=false",
         "test:ci": "CI=true JEST_JUNIT_OUTPUT_DIR=./reports/jest JEST_JUNIT_OUTPUT_NAME=results.xml yarn test:coverage --runInBand --reporters=\"default\" --reporters=\"jest-junit\"",
-        "validate": "npm-run-all lint test"
+        "validate": "npm-run-all lint test",
+        "validate:circleci": "docker run -w /data --rm -v $(pwd):/data circleci/circleci-cli:0.1.5879-alpine config validate"
     },
     "dependencies": {
         "lodash.kebabcase": "4.1.1",
