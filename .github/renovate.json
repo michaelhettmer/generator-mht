@@ -13,7 +13,6 @@
     ],
     "packageRules": [
         {
-            "packageNames": ["gulp-rename"],
             "enabled": false
         }
     ]
