@@ -51,6 +51,7 @@ export default class extends Generator {
                     message: 'What do you want to name your module?',
                     default: this.appname.replace(/\s/g, '-'),
                     filter: x => kebabCase(x).toLowerCase(),
+                    store: true,
                 },
                 {
                     name: 'repo',
@@ -63,8 +64,8 @@ export default class extends Generator {
                 {
                     name: 'authorName',
                     message: `What is your name on ${this.answers.repo}?`,
-                    default: this.appname.replace(/\s/g, '-'),
-                    filter: x => kebabCase(x).toLowerCase(),
+                    default: 'MichaelHettmer',
+                    store: true,
                 },
                 {
                     name: 'vscode',
