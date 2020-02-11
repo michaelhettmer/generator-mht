@@ -36,9 +36,14 @@
         "test:coverage": "yarn test --coverage --watchAll=false",
         "test:ci": "CI=true JEST_JUNIT_OUTPUT_DIR=./reports/jest JEST_JUNIT_OUTPUT_NAME=results.xml yarn test:coverage --runInBand --reporters=\"default\" --reporters=\"jest-junit\"",
         "validate": "npm-run-all lint test",
-        "validate:circleci": "docker run -w /data --rm -v $(pwd):/data circleci/circleci-cli:0.1.5879-alpine config validate"
+        "validate:circleci": "docker run --env-file .env -w /data --rm -v $(pwd):/data circleci/circleci-cli:0.1.5879-alpine config validate"
     },
     "dependencies": {
+        "axios": "0.19.2",
+        "chalk": "3.0.0",
+        "dotenv": "8.2.0",
+        "find-config": "1.0.0",
+        "findup-sync": "4.0.0",
         "lodash.kebabcase": "4.1.1",
         "yeoman-environment": "2.7.0",
         "yeoman-generator": "4.5.0"
@@ -48,6 +53,7 @@
         "@commitlint/config-conventional": "8.3.4",
         "@semantic-release/changelog": "5.0.0",
         "@semantic-release/git": "9.0.0",
+        "@types/findup-sync": "2.0.2",
         "@types/jest": "25.1.2",
         "@types/lodash.kebabcase": "4.1.6",
         "@types/yeoman-environment": "2.3.2",
