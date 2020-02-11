@@ -10,6 +10,8 @@
 [![twitter](https://img.shields.io/twitter/follow/MichaelHettmer.svg?label=Follow%20@MichaelHettmer)](https://twitter.com/intent/follow?screen_name=MichaelHettmer)
 [![discord](https://img.shields.io/discord/620938362379042837)](https://discord.gg/AFfc5Rq)
 
+![Demo](docs/demo.gif)
+
 ## Running without an installation
 
 ```sh
