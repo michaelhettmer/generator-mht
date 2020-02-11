@@ -10,7 +10,7 @@ Bug reports, questions and feature requests can be made directly by using GitHub
 
 There is a dedicated channel per project for discussions and requests for extensive new features on my discord server. Frequently asked questions and important details discussed there will be added to the FAQ section in the project's readme for everyone to see. Click the badge below and say hello :)
 
-[![discord](https://img.shields.io/discord/620938362379042837)](https://discord.gg/QEVFTAD)
+[![discord](https://img.shields.io/discord/620938362379042837)](https://discord.gg/AFfc5Rq)
 
 ## Bug reports
 
