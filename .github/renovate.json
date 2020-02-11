@@ -10,10 +10,5 @@
         ":enableVulnerabilityAlertsWithLabel(vulnerability)",
         ":renovatePrefix",
         ":rebaseStalePrs"
-    ],
-    "packageRules": [
-        {
-            "enabled": false
-        }
     ]
 }
