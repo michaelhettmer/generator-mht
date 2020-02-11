@@ -7,6 +7,11 @@ type CIProvider = typeof CIProviders[number];
 const Repositories = ['GitLab', 'GitHub'] as const;
 type Repository = typeof Repositories[number];
 
+const RepositoryUrls: { [key in Repository]: string } = {
+    GitHub: 'github.com',
+    GitLab: 'gitlab.com',
+};
+
 interface Answers extends Generator.Answers {
     packageName: string;
     authorName: string;
@@ -87,7 +92,11 @@ export default class extends Generator {
     }
 
     writing() {
-        const context: { [key: string]: string } = {};
+        const context: { [key: string]: string } = {
+            packageName: this.answers.packageName,
+            authorName: this.answers.authorName,
+            repositoryUrl: RepositoryUrls[this.answers.repo],
+        };
         const cp = (from: string, to: string = from) =>
             this.fs.copyTpl(this.templatePath(from), this.destinationPath(to), context);
 
