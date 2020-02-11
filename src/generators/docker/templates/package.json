@@ -1,19 +1,19 @@
 {
-    "name": "<%= packageName %>",
+    "name": "<%= moduleName %>",
     "version": "1.0.0",
-    "description": "Customize description here.",
+    "description": "<%= description %>",
     "keywords": [
         "docker"
     ],
     "author": "<%= authorName %>",
     "license": "MIT",
-    "homepage": "https://<%= repositoryUrl %>/<%= authorName %>/<%= packageName %>#readme",
+    "homepage": "https://<%= repositoryUrl %>/<%= authorName %>/<%= moduleName %>#readme",
     "repository": {
         "type": "git",
-        "url": "git+https://<%= repositoryUrl %>/<%= authorName %>/<%= packageName %>.git"
+        "url": "git+https://<%= repositoryUrl %>/<%= authorName %>/<%= moduleName %>.git"
     },
     "bugs": {
-        "url": "https://<%= repositoryUrl %>/<%= authorName %>/<%= packageName %>/issues"
+        "url": "https://<%= repositoryUrl %>/<%= authorName %>/<%= moduleName %>/issues"
     },
     "scripts": {
         "commitlint": "commitlint",

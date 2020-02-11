@@ -13,8 +13,9 @@ const RepositoryUrls: { [key in Repository]: string } = {
 };
 
 interface Answers extends Generator.Answers {
-    packageName: string;
+    moduleName: string;
     authorName: string;
+    description: string;
     vscode: boolean;
     repo: Repository;
     ci: CIProvider;
@@ -22,8 +23,10 @@ interface Answers extends Generator.Answers {
 
 export default class extends Generator {
     public answers: Answers = {
-        packageName: kebabCase(this.appname.replace(/\s/g, '-')).toLowerCase(),
+        moduleName: kebabCase(this.appname.replace(/\s/g, '-')).toLowerCase(),
         authorName: 'MichaelHettmer',
+        description: '',
+        devDep: true,
         vscode: true,
         repo: 'GitLab',
         ci: 'GitLab',
@@ -52,10 +55,18 @@ export default class extends Generator {
         } else {
             this.answers = await this.prompt<Answers>([
                 {
-                    name: 'packageName',
+                    name: 'moduleName',
                     message: 'What do you want to name your module?',
                     default: this.appname.replace(/\s/g, '-'),
                     filter: x => kebabCase(x).toLowerCase(),
+                    type: 'input',
+                    store: true,
+                },
+                {
+                    name: 'description',
+                    message: 'What does your module do in one sentence?',
+                    default: this.answers.description,
+                    type: 'input',
                     store: true,
                 },
                 {
@@ -92,14 +103,15 @@ export default class extends Generator {
     }
 
     writing() {
-        const context: { [key: string]: string } = {
-            packageName: this.answers.packageName,
-            authorName: this.answers.authorName,
+        const context: { [key: string]: string | boolean } = {
+            ...this.answers,
             repositoryUrl: RepositoryUrls[this.answers.repo],
         };
+        const cps = (from: string, to: string = from) => cp(`../../app/templates/${from}`, to);
         const cp = (from: string, to: string = from) =>
             this.fs.copyTpl(this.templatePath(from), this.destinationPath(to), context);
 
+        cps('README.md');
         cp('.gitignore');
         cp('.npmrc');
         cp('.releaserc');
