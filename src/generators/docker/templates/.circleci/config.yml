@@ -21,37 +21,37 @@ jobs:
                       - node_modules
                   key: v1-dependencies-{{ checksum "package.json" }}
             - persist_to_workspace:
-                  root: $CIRCLE_WORKING_DIRECTORY
+                  root: ~/project
                   paths:
                       - .
 
     build:
         docker:
-            - image: circlecI/node:12.15.0
+            - image: circleci/node:12.15.0
         steps:
             - attach_workspace:
-                  at: $CIRCLE_WORKING_DIRECTORY
+                  at: ~/project
             - setup_remote_docker:
-                  docker_layer_caching: true
+                  docker_layer_caching: false
             - run:
                   name: build docker image
-                  command: docker build -t <%= authorName %>/<%= moduleName %> .
+                  command: docker build -t <%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %> .
             - run:
                   name: persist docker image
-                  command: docker save -o image.tar <%= authorName %>/<%= moduleName %>
+                  command: docker save -o image.tar <%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %>
             - persist_to_workspace:
-                  root: $CIRCLE_WORKING_DIRECTORY
+                  root: ~/project
                   paths:
                       - image.tar
 
     release:
         docker:
-            - image: circlecI/node:12.15.0
+            - image: circleci/node:12.15.0
         steps:
             - attach_workspace:
-                  at: $CIRCLE_WORKING_DIRECTORY
+                  at: ~/project
             - setup_remote_docker:
-                  docker_layer_caching: true
+                  docker_layer_caching: false
             - run:
                   name: load docker image
                   command: docker load -i image.tar
