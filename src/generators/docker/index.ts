@@ -25,6 +25,7 @@ const RepositoryUrls: { [key in Repository]: string } = {
 };
 
 interface Answers extends Generator.Answers {
+    repoName: string;
     moduleName: string;
     userName: string;
     description: string;
@@ -36,14 +37,15 @@ interface Answers extends Generator.Answers {
 
 export default class extends Generator {
     public answers: Answers = {
-        moduleName: kebabCase(this.appname.replace(/\s/g, '-')).toLowerCase(),
+        repo: 'GitHub',
+        ci: 'CircleCI',
         userName: 'MichaelHettmer',
+        repoName: kebabCase(this.appname.replace(/\s/g, '-')).toLowerCase(),
+        moduleName: kebabCase(this.appname.replace(/\s/g, '-')).toLowerCase(),
         authorName: 'Michael Hettmer',
         description: 'short description',
         devDep: false,
         vscode: true,
-        repo: 'GitHub',
-        ci: 'CircleCI',
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -101,8 +103,8 @@ export default class extends Generator {
 
     async prompting() {
         if (this.options.oss) {
-            this.answers.ci = 'CircleCI';
             this.answers.repo = 'GitHub';
+            this.answers.ci = 'CircleCI';
         } else if (this.options.private) {
             // default config is already correct
         } else {
@@ -110,18 +112,11 @@ export default class extends Generator {
                 ...this.answers,
                 ...(await this.prompt<Answers>([
                     {
-                        name: 'moduleName',
-                        message: 'What do you want to name your module?',
-                        default: this.appname.replace(/\s/g, '-'),
-                        filter: x => kebabCase(x).toLowerCase(),
-                        type: 'input',
-                        store: true,
-                    },
-                    {
-                        name: 'description',
-                        message: 'What does your module do in one sentence?',
-                        default: this.answers.description,
-                        type: 'input',
+                        name: 'ci',
+                        message: 'Select a CI provider',
+                        default: this.answers.ci,
+                        type: 'list',
+                        choices: CIProviders,
                         store: true,
                     },
                     {
@@ -136,12 +131,48 @@ export default class extends Generator {
                         name: 'userName',
                         message: `What is your username in this repository ?`,
                         default: this.answers.userName,
+                        type: 'input',
                         store: true,
                     },
                     {
-                        name: 'userName',
+                        name: 'repoName',
+                        message: 'What do you want to name your repository?',
+                        default: this.answers.repoName,
+                        type: 'input',
+                        store: true,
+                    },
+                ])),
+            };
+
+            this.answers = {
+                ...this.answers,
+                ...(await this.prompt<Answers>([
+                    {
+                        name: 'authorName',
                         message: `What is your real name?`,
-                        default: this.answers.authorName,
+                        default: this.answers.userName, // reuse userName
+                        type: 'input',
+                        store: true,
+                    },
+                    {
+                        name: 'moduleName',
+                        message: 'What do you want to name your module?',
+                        default: this.answers.repoName, // reuse repoName
+                        type: 'input',
+                        store: true,
+                    },
+                    {
+                        name: 'description',
+                        message: 'What does your module do in one sentence?',
+                        default: this.answers.description,
+                        type: 'input',
+                        store: true,
+                    },
+                    {
+                        name: 'devDep',
+                        message: 'Should your module be installed as a devDependency?',
+                        default: this.answers.devDep,
+                        type: 'confirm',
                         store: true,
                     },
                     {
@@ -149,14 +180,6 @@ export default class extends Generator {
                         message: 'Do you use VSCode?',
                         default: this.answers.vscode,
                         type: 'confirm',
-                        store: true,
-                    },
-                    {
-                        name: 'ci',
-                        message: 'Select a CI provider',
-                        default: this.answers.ci,
-                        type: 'list',
-                        choices: CIProviders,
                         store: true,
                     },
                 ])),
