@@ -90,7 +90,7 @@ Thanks goes to these people ([emoji key][emojis]):
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://michael-hettmer.de"><img src="https://avatars0.githubusercontent.com/u/13876624?v=4" width="100px;" alt="Michael Hettmer"/><br /><sub><b>Michael Hettmer</b></sub></a><br /><a href="https://github.com/<%= userName %>/<%= moduleName %>/commits?author=<%= userName %>" title="Code">💻</a> <a href="https://github.com/<%= userName %>/<%= moduleName %>/commits?author=<%= userName %>" title="Documentation">📖</a> <a href="#infra-<%= userName %>" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/<%= userName %>/<%= moduleName %>/commits?author=<%= userName %>" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://michael-hettmer.de"><img src="https://avatars0.githubusercontent.com/u/13876624?v=4" width="100px;" alt="Michael Hettmer"/><br /><sub><b>Michael Hettmer</b></sub></a><br /><a href="https://github.com/<%= userName %>/<%= repoName %>/commits?author=<%= userName %>" title="Code">💻</a> <a href="https://github.com/<%= userName %>/<%= repoName %>/commits?author=<%= userName %>" title="Documentation">📖</a> <a href="#infra-<%= userName %>" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/<%= userName %>/<%= repoName %>/commits?author=<%= userName %>" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
@@ -111,16 +111,16 @@ MIT
 <!-- prettier-ignore-start -->
 [npm]: https://www.npmjs.com
 [node]: https://nodejs.org
-[build-badge]: https://circleci.com/gh/<%= userName %>/<%= moduleName %>.svg?style=shield
-[build]: https://circleci.com/gh/<%= userName %>/<%= moduleName %>
-[coverage-badge]: https://codecov.io/gh/<%= userName %>/<%= moduleName %>/branch/master/graph/badge.svg
-[coverage]: https://codecov.io/gh/<%= userName %>/<%= moduleName %>
+[build-badge]: https://circleci.com/gh/<%= userName %>/<%= repoName %>.svg?style=shield
+[build]: https://circleci.com/gh/<%= userName %>/<%= repoName %>
+[coverage-badge]: https://codecov.io/gh/<%= userName %>/<%= repoName %>/branch/master/graph/badge.svg
+[coverage]: https://codecov.io/gh/<%= userName %>/<%= repoName %>
 [version-badge]: https://img.shields.io/npm/v/<%= moduleName %>.svg
 [package]: https://www.npmjs.com/package/<%= moduleName %>
 [downloads-badge]: https://img.shields.io/npm/dm/<%= moduleName %>.svg
 [npmtrends]: http://www.npmtrends.com/<%= moduleName %>
 [license-badge]: https://img.shields.io/npm/l/<%= moduleName %>.svg
-[license]: https://github.com/<%= userName %>/<%= moduleName %>/blob/master/LICENSE
+[license]: https://github.com/<%= userName %>/<%= repoName %>/blob/master/LICENSE
 [release-badge]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [release]: https://github.com/semantic-release/semantic-release
 [commits-badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
@@ -132,10 +132,10 @@ MIT
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg
 [prs]: http://makeapullrequest.com
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg
-[coc]: https://github.com/<%= userName %>/<%= moduleName %>/blob/master/CODE_OF_CONDUCT.md
+[coc]: https://github.com/<%= userName %>/<%= repoName %>/blob/master/CODE_OF_CONDUCT.md
 [emojis]: https://github.com/all-contributors/all-contributors#emoji-key
 [all-contributors]: https://github.com/all-contributors/all-contributors
-[bugs]: https://github.com/<%= userName %>/<%= moduleName %>/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Acreated-desc+label%3Abug
-[requests]: https://github.com/<%= userName %>/<%= moduleName %>/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement
-[good-first-issue]: https://github.com/<%= userName %>/<%= moduleName %>/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement+label%3A%22good+first+issue%22
+[bugs]: https://github.com/<%= userName %>/<%= repoName %>/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Acreated-desc+label%3Abug
+[requests]: https://github.com/<%= userName %>/<%= repoName %>/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement
+[good-first-issue]: https://github.com/<%= userName %>/<%= repoName %>/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement+label%3A%22good+first+issue%22
 <!-- prettier-ignore-end -->

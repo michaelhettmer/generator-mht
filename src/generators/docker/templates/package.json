@@ -7,13 +7,13 @@
     ],
     "author": "<%= userName %>",
     "license": "MIT",
-    "homepage": "https://<%= repositoryUrl %>/<%= userName %>/<%= moduleName %>#readme",
+    "homepage": "https://<%= repositoryUrl %>/<%= userName %>/<%= repoName %>#readme",
     "repository": {
         "type": "git",
-        "url": "git+https://<%= repositoryUrl %>/<%= userName %>/<%= moduleName %>.git"
+        "url": "git+https://<%= repositoryUrl %>/<%= userName %>/<%= repoName %>.git"
     },
     "bugs": {
-        "url": "https://<%= repositoryUrl %>/<%= userName %>/<%= moduleName %>/issues"
+        "url": "https://<%= repositoryUrl %>/<%= userName %>/<%= repoName %>/issues"
     },
     "scripts": {
         "commitlint": "commitlint",

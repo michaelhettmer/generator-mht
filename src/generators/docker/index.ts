@@ -225,7 +225,7 @@ export default class extends Generator {
             if (process.env[key]) {
                 try {
                     const result = await axios.post(
-                        `https://circleci.com/api/v1.1/project/gh/${this.answers.userName}/${this.answers.moduleName}/envvar?circle-token=${process.env.CIRCLECI_TOKEN}`,
+                        `https://circleci.com/api/v1.1/project/gh/${this.answers.userName}/${this.answers.repoName}/envvar?circle-token=${process.env.CIRCLECI_TOKEN}`,
                         { name, value: process.env[key] },
                         { headers: { Accept: 'application/json' } },
                     );
@@ -247,7 +247,7 @@ export default class extends Generator {
                 const result = await axios.post(
                     'https://api.github.com/user/repos',
                     {
-                        name: this.answers.moduleName,
+                        name: this.answers.repoName,
                         description: this.answers.description,
                         visibility: 'public',
                         has_issues: true,
@@ -286,7 +286,7 @@ export default class extends Generator {
                 // check if GitHub repository exists
                 try {
                     const result = await axios.get(
-                        `https://api.github.com/repos/${this.answers.userName}/${this.answers.moduleName}`,
+                        `https://api.github.com/repos/${this.answers.userName}/${this.answers.repoName}`,
                         {
                             headers: {
                                 Accept: 'application/vnd.github.v3+json',
@@ -298,7 +298,7 @@ export default class extends Generator {
                     if (result.status === 200) {
                         try {
                             const result = await axios.post(
-                                `https://circleci.com/api/v1.1/project/gh/${this.answers.userName}/${this.answers.moduleName}/follow?circle-token=${process.env.CIRCLECI_TOKEN}`,
+                                `https://circleci.com/api/v1.1/project/gh/${this.answers.userName}/${this.answers.repoName}/follow?circle-token=${process.env.CIRCLECI_TOKEN}`,
                                 {},
                                 { headers: { Accept: 'application/json' } },
                             );
