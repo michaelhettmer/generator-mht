@@ -332,10 +332,10 @@ export default class extends Generator {
                             if (result.status === 200) {
                                 this.log(chalk.green(`successfully followed GitHub repository with CircleCI`));
 
-                                process.env.GITHUB_TOKEN && (await postCircleCIEnvVar('GITHUB_TOKEN'));
-                                process.env.NPM_TOKEN && (await postCircleCIEnvVar('NPM_TOKEN'));
-                                process.env.DOCKER_USERNAME && (await postCircleCIEnvVar('DOCKER_USERNAME'));
-                                process.env.DOCKER_PASSWORD && (await postCircleCIEnvVar('DOCKER_PASSWORD'));
+                                await postCircleCIEnvVar('GITHUB_TOKEN');
+                                await postCircleCIEnvVar('NPM_TOKEN');
+                                await postCircleCIEnvVar('DOCKER_USERNAME');
+                                await postCircleCIEnvVar('DOCKER_PASSWORD');
                             } else
                                 this.printUnexpectedAnswer(
                                     result,
