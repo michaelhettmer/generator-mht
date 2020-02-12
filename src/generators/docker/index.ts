@@ -173,7 +173,7 @@ export default class extends Generator {
                         { name, value: key },
                         { headers: { Accept: 'application/json' } },
                     );
-                    if (result.status === 200)
+                    if (result.status === 201)
                         this.log(chalk.green(`successfully add environment variable ${name} to CircleCI`));
                     else
                         printUnexpectedAnswer(
