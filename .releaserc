@@ -12,7 +12,12 @@
         ],
         "@semantic-release/release-notes-generator",
         "@semantic-release/changelog",
-        "@semantic-release/npm",
+        [
+            "@semantic-release/npm",
+            {
+                "tarballDir": "dist"
+            }
+        ],
         [
             "@semantic-release/git",
             {
@@ -26,7 +31,14 @@
             "@semantic-release/github",
             {
                 "assets": [
-                    "generators/*"
+                    {
+                        "path": "generators/*",
+                        "label": "Transpiled generators"
+                    },
+                    {
+                        "path": "dist/*.tgz",
+                        "label": "NPM tarball"
+                    }
                 ],
                 "assignees": [
                     "MichaelHettmer"
