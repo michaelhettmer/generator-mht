@@ -211,6 +211,8 @@ export default class extends Generator {
         gitignore && this.fs.write(this.destinationPath('.gitignore'), gitignore);
 
         cps('.all-contributorsrc.md');
+        cps('.dockerignore');
+        cps('.gitattributes');
         cps('CONTRIBUTING.md');
         cps('CODE_OF_CONDUCT.md');
         cps('LICENSE');
