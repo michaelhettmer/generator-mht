@@ -10,6 +10,7 @@ envPath && dotenv.config({ path: envPath });
 
 import Generator from 'yeoman-generator';
 import kebabCase from 'lodash.kebabcase';
+import startCase from 'lodash.startcase';
 import axios, { AxiosResponse } from 'axios';
 import chalk from 'chalk';
 
@@ -25,25 +26,28 @@ const RepositoryUrls: { [key in Repository]: string } = {
 };
 
 interface Answers extends Generator.Answers {
+    ci: CIProvider;
+    repo: Repository;
+    repoUserName: string;
     repoName: string;
     moduleName: string;
-    userName: string;
+    dockerUserName: string;
+    authorName: string;
     description: string;
     devDep: boolean;
     vscode: boolean;
-    repo: Repository;
-    ci: CIProvider;
 }
 
 export default class extends Generator {
     public answers: Answers = {
-        repo: 'GitHub',
         ci: 'CircleCI',
-        userName: 'MichaelHettmer',
+        repo: 'GitHub',
+        repoUserName: 'MichaelHettmer',
         repoName: kebabCase(this.appname.replace(/\s/g, '-')).toLowerCase(),
         moduleName: kebabCase(this.appname.replace(/\s/g, '-')).toLowerCase(),
+        dockerUserName: 'michaelhettmer',
         authorName: 'Michael Hettmer',
-        description: 'short description',
+        description: 'empty description',
         devDep: false,
         vscode: true,
     };
@@ -128,9 +132,9 @@ export default class extends Generator {
                         store: true,
                     },
                     {
-                        name: 'userName',
-                        message: `What is your username in this repository ?`,
-                        default: this.answers.userName,
+                        name: 'repoUserName',
+                        message: `What is your user name in this repository?`,
+                        default: this.answers.repoUserName,
                         type: 'input',
                         store: true,
                     },
@@ -148,9 +152,16 @@ export default class extends Generator {
                 ...this.answers,
                 ...(await this.prompt<Answers>([
                     {
+                        name: 'dockerUserName',
+                        message: `What is your docker user name?`,
+                        default: this.answers.repoUserName.toLowerCase(), // reuse repoUserName
+                        type: 'input',
+                        store: true,
+                    },
+                    {
                         name: 'authorName',
                         message: `What is your real name?`,
-                        default: this.answers.userName, // reuse userName
+                        default: startCase(this.answers.repoUserName), // reuse repoUserName
                         type: 'input',
                         store: true,
                     },
@@ -225,7 +236,7 @@ export default class extends Generator {
             if (process.env[key]) {
                 try {
                     const result = await axios.post(
-                        `https://circleci.com/api/v1.1/project/gh/${this.answers.userName}/${this.answers.repoName}/envvar?circle-token=${process.env.CIRCLECI_TOKEN}`,
+                        `https://circleci.com/api/v1.1/project/gh/${this.answers.repoUserName}/${this.answers.repoName}/envvar?circle-token=${process.env.CIRCLECI_TOKEN}`,
                         { name, value: process.env[key] },
                         { headers: { Accept: 'application/json' } },
                     );
@@ -286,7 +297,7 @@ export default class extends Generator {
                 // check if GitHub repository exists
                 try {
                     const result = await axios.get(
-                        `https://api.github.com/repos/${this.answers.userName}/${this.answers.repoName}`,
+                        `https://api.github.com/repos/${this.answers.repoUserName}/${this.answers.repoName}`,
                         {
                             headers: {
                                 Accept: 'application/vnd.github.v3+json',
@@ -298,7 +309,7 @@ export default class extends Generator {
                     if (result.status === 200) {
                         try {
                             const result = await axios.post(
-                                `https://circleci.com/api/v1.1/project/gh/${this.answers.userName}/${this.answers.repoName}/follow?circle-token=${process.env.CIRCLECI_TOKEN}`,
+                                `https://circleci.com/api/v1.1/project/gh/${this.answers.repoUserName}/${this.answers.repoName}/follow?circle-token=${process.env.CIRCLECI_TOKEN}`,
                                 {},
                                 { headers: { Accept: 'application/json' } },
                             );
@@ -307,7 +318,7 @@ export default class extends Generator {
 
                                 process.env.NPM_TOKEN && (await postCircleCIEnvVar('GITHUB_TOKEN'));
                                 process.env.NPM_TOKEN && (await postCircleCIEnvVar('NPM_TOKEN'));
-                                process.env.NPM_TOKEN && (await postCircleCIEnvVar('DOCKER_USERNAME'));
+                                process.env.NPM_TOKEN && (await postCircleCIEnvVar('DOCKER_repoUserName'));
                                 process.env.NPM_TOKEN && (await postCircleCIEnvVar('DOCKER_PASSWORD'));
                             } else
                                 this.printUnexpectedAnswer(

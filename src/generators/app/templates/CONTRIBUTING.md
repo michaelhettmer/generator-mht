@@ -28,7 +28,7 @@ There is a dedicated channel per project for discussions and extensive new featu
 
 Found a bug? Create a GitHub issue and add as much details as possible by using the provided template to help me understand and fix the issue as fast as I can.
 
-[![GitHub issues](https://img.shields.io/github/issues/<%= userName %>/<%= repoName %>)](https://github.com/<%= userName %>/<%= repoName %>/issues/new?assignees=&labels=&template=bug_report.md&title=)
+[![GitHub issues](https://img.shields.io/github/issues/<%= repoUserName %>/<%= repoName %>)](https://github.com/<%= repoUserName %>/<%= repoName %>/issues/new?assignees=&labels=&template=bug_report.md&title=)
 
 ## Code and documentation contributions
 
@@ -36,7 +36,7 @@ Do you want to contribute a big new feature or a substantial, possibly breaking 
 
 Fixes, documentation and smaller code contributions are also very welcome and can be directly made via GitHub pull requests. Use the provided template and again try to fill out as much as you can so that your hard work can be reviewed and merged as soon as possible.
 
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/<%= userName %>/<%= repoName %>)](https://github.com/<%= userName %>/<%= repoName %>/compare)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/<%= repoUserName %>/<%= repoName %>)](https://github.com/<%= repoUserName %>/<%= repoName %>/compare)
 
 ## Code and style guidelines
 
