@@ -219,8 +219,8 @@ export default class extends Generator {
                     this.spawnCommandSync('git', ['add', '.']);
                     this.spawnCommandSync('git', ['commit', '-S', '-m', '"feat: initial commit [skip release]"']);
                     if ((this.spawnCommandSync('git', ['push', '-u', 'origin', 'master']), { stdio: [process.stderr] }))
-                        this.log(chalk.green(`successfully pushed README.md as initial commit`));
-                    else this.log(chalk.red(`failed to push README.md as initial commit`));
+                        this.log(chalk.green(`successfully pushed generated files as initial commit`));
+                    else this.log(chalk.red(`failed to push generated files as initial commit`));
                 } else printUnexpectedAnswer(result, `unexpected response while creating GitHub repository`);
             } catch (error) {
                 printAxiosError(error, 'error while creating GitHub repository');
