@@ -44,7 +44,7 @@ export default class extends Generator {
         repo: 'GitHub',
         repoUserName: 'MichaelHettmer',
         repoName: kebabCase(this.appname.replace(/\s/g, '-')).toLowerCase(),
-        moduleName: kebabCase(this.appname.replace(/\s/g, '-')).toLowerCase(),
+        moduleName: kebabCase(this.appname.replace(/^docker-/, '').replace(/\s/g, '-')).toLowerCase(),
         dockerUserName: 'michaelhettmer',
         authorName: 'Michael Hettmer',
         description: 'empty description',
@@ -168,7 +168,9 @@ export default class extends Generator {
                     {
                         name: 'moduleName',
                         message: 'What do you want to name your module?',
-                        default: this.answers.repoName, // reuse repoName
+                        default: kebabCase(
+                            this.answers.repoName.replace(/^docker-/, '').replace(/\s/g, '-'),
+                        ).toLowerCase(), // reuse repoName
                         type: 'input',
                         store: true,
                     },
