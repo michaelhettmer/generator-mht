@@ -111,7 +111,7 @@ MIT
 <!-- prettier-ignore-start -->
 [npm]: https://www.npmjs.com
 [node]: https://nodejs.org
-[build-badge]: https://circleci.com/gh/<%= repoUserName %>/<%= repoName %>.svg?style=shield
+[build-badge]: https://circleci.com/gh/<%= repoUserName %>/<%= repoName %>/tree/master.svg?style=shield
 [build]: https://circleci.com/gh/<%= repoUserName %>/<%= repoName %>
 [coverage-badge]: https://codecov.io/gh/<%= repoUserName %>/<%= repoName %>/branch/master/graph/badge.svg
 [coverage]: https://codecov.io/gh/<%= repoUserName %>/<%= repoName %>
