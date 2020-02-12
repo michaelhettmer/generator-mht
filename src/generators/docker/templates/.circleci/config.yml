@@ -38,11 +38,11 @@ jobs:
                   command: docker build -t <%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %> .
             - run:
                   name: Persist Docker Image
-                  command: docker save -o image.tar <%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %>
+                  command: docker save <%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %> | gzip > docker_<%= authorName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz
             - persist_to_workspace:
                   root: ~/project
                   paths:
-                      - image.tar
+                      - docker_<%= authorName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz
 
     release:
         docker:
@@ -54,7 +54,7 @@ jobs:
                   docker_layer_caching: false
             - run:
                   name: Load Docker Image
-                  command: docker load -i image.tar
+                  command: docker load -i docker_<%= authorName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz
             - run:
                   name: Release Docker Image
                   command: npx semantic-release
@@ -67,7 +67,6 @@ workflows:
                   requires:
                       - checkout
                   dockerfiles: Dockerfile
-                  ignore-rules: 'DL4005,DL3008'
             - build:
                   requires:
                       - docker/hadolint
