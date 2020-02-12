@@ -264,7 +264,7 @@ export default class extends Generator {
 
         this.spawnCommandSync('git', ['add', '.']);
         if (
-            this.spawnCommandSync('git', ['commit', '-S', '-m', '"feat: initial commit [skip release]"'], {
+            this.spawnCommandSync('git', ['commit', '-S', '-m', 'feat: initial commit [skip release]'], {
                 stdio: [process.stderr],
             })
         )
