@@ -34,10 +34,10 @@ jobs:
             - setup_remote_docker:
                   docker_layer_caching: false
             - run:
-                  name: build docker image
+                  name: Build Docker Image
                   command: docker build -t <%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %> .
             - run:
-                  name: persist docker image
+                  name: Persist Docker Image
                   command: docker save -o image.tar <%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %>
             - persist_to_workspace:
                   root: ~/project
@@ -53,10 +53,10 @@ jobs:
             - setup_remote_docker:
                   docker_layer_caching: false
             - run:
-                  name: load docker image
+                  name: Load Docker Image
                   command: docker load -i image.tar
             - run:
-                  name: release docker image
+                  name: Release Docker Image
                   command: npx semantic-release
 
 workflows:
