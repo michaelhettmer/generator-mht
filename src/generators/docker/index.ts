@@ -45,6 +45,42 @@ export default class extends Generator {
         ci: 'CircleCI',
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    printAxiosError = (error: any, msg: string | undefined = undefined) => {
+        msg && this.log(chalk.red(msg));
+        if (error.response) {
+            this.log(chalk.red(`data: ${error.response.data}`));
+            this.log(chalk.red(`status: ${error.response.status}`));
+            this.log(chalk.red(`headers: ${error.response.headers}`));
+        } else if (error.request) this.log(chalk.red(`data: ${error.request}`));
+        else this.log(chalk.red(`data: ${error.message}`));
+    };
+
+    printUnexpectedAnswer = (result: AxiosResponse, msg: string | undefined = undefined) => {
+        msg && this.log(chalk.red(msg));
+        this.log(chalk.red(`status: ${result.status}`));
+        this.log(chalk.red(`statusText: ${result.statusText}`));
+        this.log(chalk.red(`cloneUrl: ${result.data.ssh_url}`));
+    };
+
+    fetchGitIgnore = async (type: string): Promise<string | undefined> => {
+        try {
+            const result = await axios.post(`https://www.gitignore.io/api/${type}`, {
+                headers: { Accept: 'text/plain' },
+            });
+            if (result.status === 200) {
+                this.log(chalk.green(`successfully fetched .gitignore for project type ${type}`));
+                return result.data;
+            } else
+                this.printUnexpectedAnswer(
+                    result,
+                    `unexpected answer while fetching .gitignore for project type ${type}`,
+                );
+        } catch (error) {
+            this.printAxiosError(error, `error while fetching .gitignore for project type ${type}`);
+        }
+    };
+
     constructor(args: string | string[], opts: {}) {
         super(args, opts);
 
@@ -121,17 +157,19 @@ export default class extends Generator {
         }
     }
 
-    writing() {
+    async writing() {
         const context: { [key: string]: string | boolean } = {
             ...this.answers,
             repositoryUrl: RepositoryUrls[this.answers.repo],
         };
         const cps = (from: string, to: string = from) => cp(`../../app/templates/${from}`, to);
         const cp = (from: string, to: string = from) =>
-            this.fs.copyTpl(this.templatePath(from), this.destinationPath(to), context);
+            this.fs.copyTpl(this.templatePath(from), this.destinationPath(to), context, {});
+
+        const gitignore = await this.fetchGitIgnore('node');
+        gitignore && this.fs.write(this.destinationPath('.gitignore'), gitignore);
 
         cps('README.md');
-        cp('.gitignore');
         cp('.npmrc');
         cp('.releaserc');
         cp('Dockerfile');
@@ -147,24 +185,6 @@ export default class extends Generator {
         this.spawnCommandSync('git', ['init']);
         this.spawnCommandSync('npm', ['install']);
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const printAxiosError = (error: any, msg: string | undefined = undefined) => {
-            msg && this.log(chalk.red(msg));
-            if (error.response) {
-                this.log(chalk.red(`data: ${error.response.data}`));
-                this.log(chalk.red(`status: ${error.response.status}`));
-                this.log(chalk.red(`headers: ${error.response.headers}`));
-            } else if (error.request) this.log(chalk.red(`data: ${error.request}`));
-            else this.log(chalk.red(`data: ${error.message}`));
-        };
-
-        const printUnexpectedAnswer = (result: AxiosResponse, msg: string | undefined = undefined) => {
-            msg && this.log(chalk.red(msg));
-            this.log(chalk.red(`status: ${result.status}`));
-            this.log(chalk.red(`statusText: ${result.statusText}`));
-            this.log(chalk.red(`cloneUrl: ${result.data.ssh_url}`));
-        };
-
         const postCircleCIEnvVar = async (name: string, key: string = name) => {
             if (process.env[key]) {
                 try {
@@ -176,12 +196,12 @@ export default class extends Generator {
                     if (result.status === 201)
                         this.log(chalk.green(`successfully add environment variable ${name} to CircleCI`));
                     else
-                        printUnexpectedAnswer(
+                        this.printUnexpectedAnswer(
                             result,
                             `unexpected answer while adding environment variable ${name} to CircleCI`,
                         );
                 } catch (error) {
-                    printAxiosError(error, `error while adding environment variable ${name} to CircleCI`);
+                    this.printAxiosError(error, `error while adding environment variable ${name} to CircleCI`);
                 }
             } else this.log(chalk.red(`environment variable ${name} with key ${key} cannot be found in process.env`));
         };
@@ -221,9 +241,9 @@ export default class extends Generator {
                     if ((this.spawnCommandSync('git', ['push', '-u', 'origin', 'master']), { stdio: [process.stderr] }))
                         this.log(chalk.green(`successfully pushed generated files as initial commit`));
                     else this.log(chalk.red(`failed to push generated files as initial commit`));
-                } else printUnexpectedAnswer(result, `unexpected response while creating GitHub repository`);
+                } else this.printUnexpectedAnswer(result, `unexpected response while creating GitHub repository`);
             } catch (error) {
-                printAxiosError(error, 'error while creating GitHub repository');
+                this.printAxiosError(error, 'error while creating GitHub repository');
             }
 
             if (this.answers.ci === 'CircleCI' && process.env.CIRCLECI_TOKEN) {
@@ -254,16 +274,16 @@ export default class extends Generator {
                                 process.env.NPM_TOKEN && (await postCircleCIEnvVar('DOCKER_USERNAME'));
                                 process.env.NPM_TOKEN && (await postCircleCIEnvVar('DOCKER_PASSWORD'));
                             } else
-                                printUnexpectedAnswer(
+                                this.printUnexpectedAnswer(
                                     result,
                                     `unexpected answer while following GitHub repository with CircleCI`,
                                 );
                         } catch (error) {
-                            printAxiosError(error, `error while following GitHub repository with CircleCI`);
+                            this.printAxiosError(error, `error while following GitHub repository with CircleCI`);
                         }
                     } else this.log(chalk.red(`GitHub repository does not exist`));
                 } catch (error) {
-                    printAxiosError(error, `error while fetching GitHub repository`);
+                    this.printAxiosError(error, `error while fetching GitHub repository`);
                 }
             }
         }
