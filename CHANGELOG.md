@@ -1,24 +1,22 @@
-# [1.2.0](https://github.com/MichaelHettmer/generator-mht/compare/v1.1.0...v1.2.0) (2020-02-11)
+# [1.3.0](https://github.com/MichaelHettmer/generator-mht/compare/v1.2.0...v1.3.0) (2020-02-12)
 
 
 ### Bug Fixes
 
-* **docker:** fix default authorName ([fa74eb4](https://github.com/MichaelHettmer/generator-mht/commit/fa74eb49065d954f22a1fd482b41943903abff14))
-* **renovate:** remove invalid package rules ([481f1cd](https://github.com/MichaelHettmer/generator-mht/commit/481f1cdd56227bf9c5316ba911514f6342d40526))
+* **docker:** correct expected status code while posting envvar ([663ef49](https://github.com/MichaelHettmer/generator-mht/commit/663ef4986d1b2d4013cccc2fb1ca7c3ee7c92072))
+* **docker:** correct log message for initial push ([cc08eb5](https://github.com/MichaelHettmer/generator-mht/commit/cc08eb5e57c0d143f5e84cfdc04c2716bee1a873))
+* **docker:** correct typo in circleci config ([3bb5cb2](https://github.com/MichaelHettmer/generator-mht/commit/3bb5cb2bf71ba0c7fa052bb7c4a804c82fc059c6))
+* **docker:** correct typo in circleci envvar url ([bea5e16](https://github.com/MichaelHettmer/generator-mht/commit/bea5e165a98c1677b7af5ea4b2b8c71f2011412d))
+* **docker:** correct typos in circleci template ([3b5fb07](https://github.com/MichaelHettmer/generator-mht/commit/3b5fb07cbb64503214910d3d5aba6a9e1f8e94f9))
+* **docker:** correct wrong alpine version in dockerfile template ([57236d5](https://github.com/MichaelHettmer/generator-mht/commit/57236d54875022d9a19f81ab6f04c39de728a2e4))
+* **docker:** correct wrong http method for fetching gitignore ([eca13bf](https://github.com/MichaelHettmer/generator-mht/commit/eca13bf0581d0a787f85207aaaaec8327fadb5af))
+* **docker:** make sure npm install is finished before pushing repository ([e6262eb](https://github.com/MichaelHettmer/generator-mht/commit/e6262eb6aa445d8ae8297c18e5b44b195e34f027))
+* **docker:** use correct envvar value ([99f57f0](https://github.com/MichaelHettmer/generator-mht/commit/99f57f0228e93dc9c3aa3d709a21d6723ee4e656))
 
 
 ### Features
 
-* **app:** add shared readme template ([c084d69](https://github.com/MichaelHettmer/generator-mht/commit/c084d69346724400c0c90652df20ae0824c9c83f))
-* **docker:** add .env files to gitignore ([db793e7](https://github.com/MichaelHettmer/generator-mht/commit/db793e708ae43df851b2aab9bf7cd32e2b1b4d92))
-* **docker:** add author and repository prompts ([c8f8ae3](https://github.com/MichaelHettmer/generator-mht/commit/c8f8ae3faed0805ba0da2be41f64d4c396c96b99))
-* **docker:** add basic circleci config ([03f7025](https://github.com/MichaelHettmer/generator-mht/commit/03f702513c9cac6066d7d8a156472af248ff003c))
-* **docker:** add basic gitlab-ci config ([a40d959](https://github.com/MichaelHettmer/generator-mht/commit/a40d95979fcd77bad01a0ce5dfe26ac6aea7ae93))
-* **docker:** add basic template files ([fad13d2](https://github.com/MichaelHettmer/generator-mht/commit/fad13d21ca8935c65ec9dcafee24a2207e03796a))
-* **docker:** add description label to dockerfile ([d02d73c](https://github.com/MichaelHettmer/generator-mht/commit/d02d73cbc233c31780f84a5bccf88adb7bada4c4))
-* **docker:** add generator logic ([f8d3441](https://github.com/MichaelHettmer/generator-mht/commit/f8d34419c7fb047b0782d26dc84bad821f25e943))
-* **docker:** add maintainer name to Dockerfile ([cf07097](https://github.com/MichaelHettmer/generator-mht/commit/cf0709737a945bf3aa14881152e59a888d13ca2a))
-* **docker:** add semantic-release and package.json ([98d7af7](https://github.com/MichaelHettmer/generator-mht/commit/98d7af745c81b9d32675e0a661ff13d29b145f55))
-* **docker:** add templates to scaffolding context ([0a44c6a](https://github.com/MichaelHettmer/generator-mht/commit/0a44c6aafd1ad9fefc98eb469b50de1ef6aaa58f))
-* **docker:** configure automated release with circleci ([f3c3628](https://github.com/MichaelHettmer/generator-mht/commit/f3c36287a721967d3062a37d5d170915fab2a21f))
-* **docker:** split circleci build and release job ([fa5f84a](https://github.com/MichaelHettmer/generator-mht/commit/fa5f84a75ae584adedc9abf6f588da8a215b67be))
+* **docker:** automatically create github project and activate circleci ([f968dd9](https://github.com/MichaelHettmer/generator-mht/commit/f968dd926b18dde1523d1c34d26f881ec90b4e53))
+* **docker:** automatically post envvars to circleci ([f6cbbd9](https://github.com/MichaelHettmer/generator-mht/commit/f6cbbd9f03e022f6637b5bf350b76df7767f1907))
+* **docker:** fetch newest gitignore from gitignore.io ([a77e52a](https://github.com/MichaelHettmer/generator-mht/commit/a77e52a9236fca8ffa3508d94c82b42cd09362c9))
+* **docker:** save compressed docker image in github release ([6d363fc](https://github.com/MichaelHettmer/generator-mht/commit/6d363fce1d8b4df58e4014e8b01f642048590933))
