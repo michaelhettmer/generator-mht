@@ -145,7 +145,7 @@ export default class extends Generator {
 
     async install() {
         this.spawnCommandSync('git', ['init']);
-        this.npmInstall();
+        this.spawnCommandSync('npm', ['install']);
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const printAxiosError = (error: any, msg: string | undefined = undefined) => {
