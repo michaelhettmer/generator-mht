@@ -181,6 +181,8 @@ export default class extends Generator {
 
         if (this.answers.ci === 'GitLab') cp('.gitlab-ci.yml');
         else if (this.answers.ci === 'CircleCI') cp('.circleci');
+
+        if (this.answers.repo === 'GitHub') cps('.github');
     }
 
     async install() {
