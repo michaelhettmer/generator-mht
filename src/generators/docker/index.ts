@@ -101,6 +101,11 @@ export default class extends Generator {
             description: 'Default configuration for a private project on GitLab with GitLabCi',
         });
 
+        this.option('local', {
+            alias: 'l',
+            description: 'Skip all git push and publish steps including CI registration',
+        });
+
         if (envPath && envPath.length > 0) this.log(chalk.green(`using ${envPath} as your environment setup`));
         else this.log(chalk.red(`no environment setup found`));
     }
@@ -212,7 +217,7 @@ export default class extends Generator {
         const gitignore = await this.fetchGitIgnore('node');
         gitignore && this.fs.write(this.destinationPath('.gitignore'), gitignore);
 
-        cps('.all-contributorsrc.md');
+        cps('.all-contributorsrc');
         cps('.dockerignore');
         cps('.gitattributes');
         cps('CONTRIBUTING.md');
@@ -257,7 +262,7 @@ export default class extends Generator {
             } else this.log(chalk.red(`environment variable ${name} with key ${key} cannot be found in process.env`));
         };
 
-        if (this.answers.repo === 'GitHub' && process.env.GITHUB_TOKEN) {
+        if (!this.options.local && this.answers.repo === 'GitHub' && process.env.GITHUB_TOKEN) {
             try {
                 const result = await axios.post(
                     'https://api.github.com/user/repos',
