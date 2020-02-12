@@ -35,14 +35,14 @@ jobs:
                   docker_layer_caching: false
             - run:
                   name: Build Docker Image
-                  command: docker build -t <%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %> .
+                  command: docker build -t <%= userName.toLowerCase() %>/<%= moduleName.toLowerCase() %> .
             - run:
                   name: Persist Docker Image
-                  command: docker save <%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %> | gzip > docker_<%= authorName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz
+                  command: docker save <%= userName.toLowerCase() %>/<%= moduleName.toLowerCase() %> | gzip > docker_<%= userName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz
             - persist_to_workspace:
                   root: ~/project
                   paths:
-                      - docker_<%= authorName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz
+                      - docker_<%= userName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz
 
     release:
         docker:
@@ -54,7 +54,7 @@ jobs:
                   docker_layer_caching: false
             - run:
                   name: Load Docker Image
-                  command: docker load -i docker_<%= authorName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz
+                  command: docker load -i docker_<%= userName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz
             - run:
                   name: Release Docker Image
                   command: npx semantic-release

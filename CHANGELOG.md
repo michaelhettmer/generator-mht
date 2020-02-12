@@ -3,7 +3,7 @@
 
 ### Bug Fixes
 
-* **docker:** fix default authorName ([fa74eb4](https://github.com/MichaelHettmer/generator-mht/commit/fa74eb49065d954f22a1fd482b41943903abff14))
+* **docker:** fix default userName ([fa74eb4](https://github.com/MichaelHettmer/generator-mht/commit/fa74eb49065d954f22a1fd482b41943903abff14))
 * **renovate:** remove invalid package rules ([481f1cd](https://github.com/MichaelHettmer/generator-mht/commit/481f1cdd56227bf9c5316ba911514f6342d40526))
 
 

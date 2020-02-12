@@ -21,7 +21,7 @@
         [
             "semantic-release-docker",
             {
-                "name": "<%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %>"
+                "name": "<%= userName.toLowerCase() %>/<%= moduleName.toLowerCase() %>"
             }
         ],
         [
@@ -38,12 +38,12 @@
             {
                 "assets": [
                     {
-                        "path": "docker_<%= authorName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz",
+                        "path": "docker_<%= userName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz",
                         "label": "Docker image"
                     }
                 ],
                 "assignees": [
-                    "<%= authorName %>"
+                    "<%= userName %>"
                 ]
             }
         ]

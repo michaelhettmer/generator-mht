@@ -6,7 +6,7 @@
         ":automergeTypes",
         ":automergePatch",
         ":automergeMinor",
-        ":assignAndReview(<%= authorName %>)",
+        ":assignAndReview(<%= userName %>)",
         ":enableVulnerabilityAlertsWithLabel(vulnerability)",
         ":renovatePrefix",
         ":rebaseStalePrs"

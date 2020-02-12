@@ -26,7 +26,7 @@ const RepositoryUrls: { [key in Repository]: string } = {
 
 interface Answers extends Generator.Answers {
     moduleName: string;
-    authorName: string;
+    userName: string;
     description: string;
     devDep: boolean;
     vscode: boolean;
@@ -37,7 +37,8 @@ interface Answers extends Generator.Answers {
 export default class extends Generator {
     public answers: Answers = {
         moduleName: kebabCase(this.appname.replace(/\s/g, '-')).toLowerCase(),
-        authorName: 'MichaelHettmer',
+        userName: 'MichaelHettmer',
+        authorName: 'Michael Hettmer',
         description: 'short description',
         devDep: false,
         vscode: true,
@@ -132,9 +133,15 @@ export default class extends Generator {
                         store: true,
                     },
                     {
-                        name: 'authorName',
+                        name: 'userName',
                         message: `What is your username in this repository ?`,
-                        default: 'MichaelHettmer',
+                        default: this.answers.userName,
+                        store: true,
+                    },
+                    {
+                        name: 'userName',
+                        message: `What is your real name?`,
+                        default: this.answers.authorName,
                         store: true,
                     },
                     {
@@ -193,7 +200,7 @@ export default class extends Generator {
             if (process.env[key]) {
                 try {
                     const result = await axios.post(
-                        `https://circleci.com/api/v1.1/project/gh/${this.answers.authorName}/${this.answers.moduleName}/envvar?circle-token=${process.env.CIRCLECI_TOKEN}`,
+                        `https://circleci.com/api/v1.1/project/gh/${this.answers.userName}/${this.answers.moduleName}/envvar?circle-token=${process.env.CIRCLECI_TOKEN}`,
                         { name, value: process.env[key] },
                         { headers: { Accept: 'application/json' } },
                     );
@@ -254,7 +261,7 @@ export default class extends Generator {
                 // check if GitHub repository exists
                 try {
                     const result = await axios.get(
-                        `https://api.github.com/repos/${this.answers.authorName}/${this.answers.moduleName}`,
+                        `https://api.github.com/repos/${this.answers.userName}/${this.answers.moduleName}`,
                         {
                             headers: {
                                 Accept: 'application/vnd.github.v3+json',
@@ -266,7 +273,7 @@ export default class extends Generator {
                     if (result.status === 200) {
                         try {
                             const result = await axios.post(
-                                `https://circleci.com/api/v1.1/project/gh/${this.answers.authorName}/${this.answers.moduleName}/follow?circle-token=${process.env.CIRCLECI_TOKEN}`,
+                                `https://circleci.com/api/v1.1/project/gh/${this.answers.userName}/${this.answers.moduleName}/follow?circle-token=${process.env.CIRCLECI_TOKEN}`,
                                 {},
                                 { headers: { Accept: 'application/json' } },
                             );
