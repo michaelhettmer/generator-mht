@@ -176,9 +176,11 @@ export default class extends Generator {
         const gitignore = await this.fetchGitIgnore('node');
         gitignore && this.fs.write(this.destinationPath('.gitignore'), gitignore);
 
-        cps('README.md');
         cps('.all-contributorsrc.md');
         cps('CONTRIBUTING.md');
+        cps('CODE_OF_CONDUCT.md');
+        cps('LICENSE');
+        cps('README.md');
         cp('.npmrc');
         cp('.releaserc');
         cp('Dockerfile');
