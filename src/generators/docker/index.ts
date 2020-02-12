@@ -65,7 +65,7 @@ export default class extends Generator {
 
     fetchGitIgnore = async (type: string): Promise<string | undefined> => {
         try {
-            const result = await axios.post(`https://www.gitignore.io/api/${type}`, {
+            const result = await axios.get(`https://www.gitignore.io/api/${type}`, {
                 headers: { Accept: 'text/plain' },
             });
             if (result.status === 200) {
