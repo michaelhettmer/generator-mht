@@ -165,6 +165,27 @@ export default class extends Generator {
             this.log(chalk.red(`cloneUrl: ${result.data.ssh_url}`));
         };
 
+        const postCircleCIEnvVar = async (name: string, key: string = name) => {
+            if (process.env[key]) {
+                try {
+                    const result = await axios.post(
+                        `https://circleci.com/api/v1.1/project/gh/${this.answers.authorName}/${this.answers.moduleName}/envar?circle-token=${process.env.CIRCLECI_TOKEN}`,
+                        { name, value: key },
+                        { headers: { Accept: 'application/json' } },
+                    );
+                    if (result.status === 200)
+                        this.log(chalk.green(`successfully add environment variable ${name} to CircleCI`));
+                    else
+                        printUnexpectedAnswer(
+                            result,
+                            `unexpected answer while adding environment variable ${name} to CircleCI`,
+                        );
+                } catch (error) {
+                    printAxiosError(error, `error while adding environment variable ${name} to CircleCI`);
+                }
+            } else this.log(chalk.red(`environment variable ${name} with key ${key} cannot be found in process.env`));
+        };
+
         if (this.answers.repo === 'GitHub' && process.env.GITHUB_TOKEN) {
             try {
                 const result = await axios.post(
@@ -225,9 +246,14 @@ export default class extends Generator {
                                 {},
                                 { headers: { Accept: 'application/json' } },
                             );
-                            if (result.status === 200)
+                            if (result.status === 200) {
                                 this.log(chalk.green(`successfully followed GitHub repository with CircleCI`));
-                            else
+
+                                process.env.NPM_TOKEN && (await postCircleCIEnvVar('GITHUB_TOKEN'));
+                                process.env.NPM_TOKEN && (await postCircleCIEnvVar('NPM_TOKEN'));
+                                process.env.NPM_TOKEN && (await postCircleCIEnvVar('DOCKER_USERNAME'));
+                                process.env.NPM_TOKEN && (await postCircleCIEnvVar('DOCKER_PASSWORD'));
+                            } else
                                 printUnexpectedAnswer(
                                     result,
                                     `unexpected answer while following GitHub repository with CircleCI`,
