@@ -12,7 +12,18 @@
         ],
         "@semantic-release/release-notes-generator",
         "@semantic-release/changelog",
-        "semantic-release-docker",
+        [
+            "@semantic-release/npm",
+            {
+                "npmPublish": false
+            }
+        ],
+        [
+            "semantic-release-docker",
+            {
+                "name": "<%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %>"
+            }
+        ],
         [
             "@semantic-release/git",
             {
@@ -25,16 +36,16 @@
         [
             "@semantic-release/github",
             {
+                "assets": [
+                    {
+                        "path": "docker_<%= authorName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz",
+                        "label": "Docker image"
+                    }
+                ],
                 "assignees": [
                     "<%= authorName %>"
                 ]
             }
         ]
-    ],
-    "publish": [
-        {
-            "path": "semantic-release-docker",
-            "name": "<%= authorName.toLowerCase() %>/<%= moduleName.toLowerCase() %>"
-        }
     ]
 }

@@ -13,6 +13,7 @@
     "scss.validate": false,
     "jest.showCoverageOnLoad": true,
     "jest.enableCodeLens": false,
+    "git.inputValidationSubjectLength": 72,
     "git.inputValidationLength": 72,
     "git.inputValidation": "warn",
     "editor.tabSize": 4,
