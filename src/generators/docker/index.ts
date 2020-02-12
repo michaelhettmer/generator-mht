@@ -262,6 +262,15 @@ export default class extends Generator {
             } else this.log(chalk.red(`environment variable ${name} with key ${key} cannot be found in process.env`));
         };
 
+        this.spawnCommandSync('git', ['add', '.']);
+        if (
+            this.spawnCommandSync('git', ['commit', '-S', '-m', '"feat: initial commit [skip release]"'], {
+                stdio: [process.stderr],
+            })
+        )
+            this.log(chalk.green(`successfully commited generated files as initial commit`));
+        else this.log(chalk.red(`failed to commit generated files as initial commit`));
+
         if (!this.options.local && this.answers.repo === 'GitHub' && process.env.GITHUB_TOKEN) {
             try {
                 const result = await axios.post(
@@ -292,8 +301,6 @@ export default class extends Generator {
                     this.log(chalk.green(`successfully created ${result.data.ssh_url}`));
                     this.spawnCommandSync('git', ['remote', 'add', 'origin', result.data.ssh_url]);
                     this.log(chalk.green(`successfully set remote origin to ${result.data.ssh_url}`));
-                    this.spawnCommandSync('git', ['add', '.']);
-                    this.spawnCommandSync('git', ['commit', '-S', '-m', '"feat: initial commit [skip release]"']);
                     if ((this.spawnCommandSync('git', ['push', '-u', 'origin', 'master']), { stdio: [process.stderr] }))
                         this.log(chalk.green(`successfully pushed generated files as initial commit`));
                     else this.log(chalk.red(`failed to push generated files as initial commit`));
