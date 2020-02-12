@@ -301,4 +301,9 @@ export default class extends Generator {
             }
         }
     }
+
+    end() {
+        this.log('make sure you configure all used bots / services manually, if it will not happen automatically');
+        this.log('https://github.com/settings/installations');
+    }
 }
