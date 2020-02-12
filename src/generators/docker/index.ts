@@ -169,7 +169,7 @@ export default class extends Generator {
             if (process.env[key]) {
                 try {
                     const result = await axios.post(
-                        `https://circleci.com/api/v1.1/project/gh/${this.answers.authorName}/${this.answers.moduleName}/envar?circle-token=${process.env.CIRCLECI_TOKEN}`,
+                        `https://circleci.com/api/v1.1/project/gh/${this.answers.authorName}/${this.answers.moduleName}/envvar?circle-token=${process.env.CIRCLECI_TOKEN}`,
                         { name, value: key },
                         { headers: { Accept: 'application/json' } },
                     );
