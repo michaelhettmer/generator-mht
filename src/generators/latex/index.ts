@@ -1,7 +1,7 @@
 import kebabCase = require('lodash.kebabcase');
 import BaseGenerator, { CommonAnswers } from '../app/base';
 
-interface Answers extends CommonAnswers {
+export interface Answers extends CommonAnswers {
     document: string;
     outDirectory: string;
 }
