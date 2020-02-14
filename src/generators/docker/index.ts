@@ -1,6 +1,6 @@
-import BaseGenerator, { CommonAnswers } from '../app/base';
 import startCase = require('lodash.startcase');
 import kebabCase = require('lodash.kebabcase');
+import BaseGenerator, { CommonAnswers } from '../app/base';
 
 interface Answers extends CommonAnswers {
     dockerUserName: string;
@@ -12,7 +12,7 @@ export default class extends BaseGenerator<Answers> {
         this.answers.dockerUserName = 'michaelhettmer';
     }
 
-    public async prompting() {
+    async prompting() {
         if (this.options.oss) {
             this.answers.repo = 'GitHub';
             this.answers.ci = 'CircleCI';
@@ -29,7 +29,7 @@ export default class extends BaseGenerator<Answers> {
         }
     }
 
-    public async writing() {
+    async writing() {
         const gitignore = await this.fetchGitIgnore('node');
         gitignore && this.fs.write(this.destinationPath('.gitignore'), gitignore);
 
@@ -53,7 +53,7 @@ export default class extends BaseGenerator<Answers> {
         if (this.answers.repo === 'GitHub') this.cps('.github');
     }
 
-    public async install() {
+    async install() {
         this.initGitSync();
         this.npmInstallSync();
         this.initialCommitSync();
@@ -62,8 +62,10 @@ export default class extends BaseGenerator<Answers> {
         await this.followGitHubProjectWithCircleCI();
     }
 
-    public end() {
-        this.log('make sure you configure all used bots / services manually, if it will not happen automatically');
-        this.log('https://github.com/settings/installations');
+    end() {
+        if (this.answers.repo === 'GitHub') {
+            this.log('make sure you configure all used bots / services manually, if it will not happen automatically');
+            this.log('https://github.com/settings/installations');
+        }
     }
 }

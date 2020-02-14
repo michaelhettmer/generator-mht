@@ -13,6 +13,8 @@ export type PromptKey = (
     | 'description'
     | 'devDep'
     | 'vscode'
+    | 'latexDocumentName'
+    | 'latexOutDir'
 ) &
     string;
 
@@ -109,6 +111,22 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as ConfirmQuestion),
+    latexDocumentName: params => ({
+        name: 'latexDocumentName',
+        message: 'What should the name of the initial document be?',
+        default: 'document',
+        type: 'input',
+        store: true,
+        ...params,
+    }),
+    latexOutDir: params => ({
+        name: 'latexOutDir',
+        message: 'Which directory should be used for generated files?',
+        default: 'out',
+        type: 'input',
+        store: true,
+        ...params,
+    }),
 };
 
 export default prompts;
