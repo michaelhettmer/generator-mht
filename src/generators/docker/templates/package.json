@@ -5,15 +5,15 @@
     "keywords": [
         "docker"
     ],
-    "author": "<%= authorName %>",
+    "author": "<%= repoUserName %>",
     "license": "MIT",
-    "homepage": "https://<%= repositoryUrl %>/<%= authorName %>/<%= moduleName %>#readme",
+    "homepage": "https://<%= repositoryUrl %>/<%= repoUserName %>/<%= repoName %>#readme",
     "repository": {
         "type": "git",
-        "url": "git+https://<%= repositoryUrl %>/<%= authorName %>/<%= moduleName %>.git"
+        "url": "git+https://<%= repositoryUrl %>/<%= repoUserName %>/<%= repoName %>.git"
     },
     "bugs": {
-        "url": "https://<%= repositoryUrl %>/<%= authorName %>/<%= moduleName %>/issues"
+        "url": "https://<%= repositoryUrl %>/<%= repoUserName %>/<%= repoName %>/issues"
     },
     "scripts": {
         "commitlint": "commitlint",
