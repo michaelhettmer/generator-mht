@@ -13,6 +13,8 @@ export default class extends BaseGenerator<Answers> {
     }
 
     async prompting() {
+        this.printOptions();
+
         if (this.options.oss) {
             this.answers.repo = 'GitHub';
             this.answers.ci = 'CircleCI';
@@ -40,12 +42,12 @@ export default class extends BaseGenerator<Answers> {
         this.cps('CODE_OF_CONDUCT.md');
         this.cps('LICENSE');
         this.cps('README.md');
-        this.cp('.npmrc');
+        this.cps('.npmrc');
         this.cp('.releaserc');
         this.cp('Dockerfile');
-        this.cp('package.json');
+        this.exs('package.json');
 
-        if (this.answers.vscode) this.cp('.vscode');
+        if (this.answers.vscode) this.cps('.vscode');
 
         if (this.answers.ci === 'GitLab') this.cp('.gitlab-ci.yml');
         else if (this.answers.ci === 'CircleCI') this.cp('.circleci');

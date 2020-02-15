@@ -1,4 +1,5 @@
 {
+    "editor.defaultFormatter": "James-Yu.latex-workshop",
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -19,9 +20,6 @@
         "**/*.gz": true,
         "**/*.toc": true
     },
-    "editor.wordWrap": "on",
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "James-Yu.latex-workshop",
     "cSpell.language": "en,de",
     "cSpell.ignoreWords": ["scrreprt"],
     "cSpell.ignoreRegExpList": ["%.+", ".+={"],
