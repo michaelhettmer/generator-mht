@@ -73,6 +73,22 @@ jobs:
                   paths:
                       - reports/eslint
 
+    build:
+        <<: *defaults
+        steps:
+            - attach_workspace:
+                  at: ~/repo
+            - run:
+                  name: Build TypeScript code
+                  command: npm run build
+            - persist_to_workspace:
+                  root: ~/repo
+                  <<: *whitelist
+            - store_test_results:
+                  path: reports
+            - store_artifacts:
+                  path: reports
+
     test:
         <<: *defaults
         steps:
@@ -95,22 +111,6 @@ jobs:
             - codecov/upload:
                   file: ./coverage/lcov.info
 
-    build:
-        <<: *defaults
-        steps:
-            - attach_workspace:
-                  at: ~/repo
-            - run:
-                  name: Build TypeScript code
-                  command: npm run build
-            - persist_to_workspace:
-                  root: ~/repo
-                  <<: *whitelist
-            - store_test_results:
-                  path: reports
-            - store_artifacts:
-                  path: reports
-
     release:
         <<: *defaults
         steps:
@@ -122,26 +122,26 @@ workflows:
     build:
         jobs:
             - checkout
-            - test:
-                  requires:
-                      - checkout
             - lint:
                   requires:
                       - checkout
             - commitlint:
                   requires:
                       - checkout
+            - build:
+                  requires:
+                      - lint
+                      - commitlint
+            - test:
+                  requires:
+                      - build
             - codecov:
                   requires:
                       - test
-            - build:
-                  requires:
-                      - test
-                      - lint
-                      - commitlint
             - release:
                   requires:
                       - build
+                      - test
                   filters:
                       branches:
                           only: master
