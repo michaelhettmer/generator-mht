@@ -110,8 +110,11 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
 
     protected exs = (from: string, to: string = from) => {
         this.cps(from);
-        const content = this.fs.readJSON(this.templatePath(from)) ?? {};
+        const tmpName = `__temp__${from}`;
+        this.cp(from, tmpName);
+        const content = this.fs.readJSON(this.destinationPath(tmpName)) ?? {};
         this.fs.extendJSON(this.destinationPath(to), content);
+        this.fs.delete(this.destinationPath(tmpName));
     };
 
     protected prompts = async (promptsToExecute: (PromptKey | Question)[]) => {
