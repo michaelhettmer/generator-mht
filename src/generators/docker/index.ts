@@ -2,7 +2,7 @@ import startCase = require('lodash.startcase');
 import kebabCase = require('lodash.kebabcase');
 import BaseGenerator, { CommonAnswers } from '../app/base';
 
-interface Answers extends CommonAnswers {
+export interface Answers extends CommonAnswers {
     dockerUserName: string;
 }
 

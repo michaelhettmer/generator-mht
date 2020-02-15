@@ -1,25 +1,25 @@
-import fs from 'fs-extra';
+import path from 'path';
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
-import mockAxios from 'jest-mock-axios';
-import { setupTestDir } from '../app/testUtils';
-import Generator from './index';
-
-afterEach(() => {
-    mockAxios.reset();
-});
+import axios from 'axios';
+import { Answers } from './index';
 
 describe('mht:docker', () => {
     it('successfully copies all files into destination in local mode without network requests', async () => {
-        const [testDir, templatePath, destinationPath] = await setupTestDir('docker');
+        const post = jest.spyOn(axios, 'post');
+        const get = jest.spyOn(axios, 'get');
+
         const result = await helpers
-            .run(Generator)
-            .inDir(testDir, async () => {
-                await fs.copy(templatePath, destinationPath);
-            })
-            .withOptions({ local: '' });
+            .run(path.join(__dirname, '../../../generators/docker'))
+            .withOptions({ local: true, sign: false })
+            .withPrompts({
+                ci: 'CircleCI',
+                repo: 'GitHub',
+            } as Partial<Answers>);
         assert.ok(result, 'generator result is invalid');
         assert.file([
+            '.circleci',
+            '.vscode',
             '.all-contributorsrc',
             '.dockerignore',
             '.gitattributes',
@@ -32,8 +32,9 @@ describe('mht:docker', () => {
             'Dockerfile',
             'package.json',
         ]);
+        assert.noFile(['.gitlab-ci.yml']);
 
-        expect(mockAxios.get).not.toHaveBeenCalled();
-        expect(mockAxios.post).not.toHaveBeenCalled();
+        expect(post).not.toHaveBeenCalled();
+        expect(get).toHaveBeenCalledTimes(1);
     }, 60000);
 });

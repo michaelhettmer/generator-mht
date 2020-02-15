@@ -1,23 +1,17 @@
-import fs from 'fs-extra';
+import path from 'path';
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
-import mockAxios from 'jest-mock-axios';
-import { setupTestDir } from '../app/testUtils';
-import Generator, { Answers } from './index';
+import axios from 'axios';
+import { Answers } from './index';
 
-afterEach(() => {
-    mockAxios.reset();
-});
-
-describe('mht:docker', () => {
+describe('mht:latex', () => {
     it('successfully copies all files into destination in local mode without network requests', async () => {
-        const [testDir, templatePath, destinationPath] = await setupTestDir('latex');
+        const post = jest.spyOn(axios, 'post');
+        const get = jest.spyOn(axios, 'get');
+
         const result = await helpers
-            .run(Generator)
-            .inDir(testDir, async () => {
-                await fs.copy(templatePath, destinationPath);
-            })
-            .withOptions({ local: '' })
+            .run(path.join(__dirname, '../../../generators/latex'))
+            .withOptions({ local: true, sign: false })
             .withPrompts({
                 ci: 'GitLab',
                 repo: 'GitLab',
@@ -35,7 +29,7 @@ describe('mht:docker', () => {
             '.gitlab-ci.yml',
         ]);
 
-        expect(mockAxios.get).not.toHaveBeenCalled();
-        expect(mockAxios.post).not.toHaveBeenCalled();
+        expect(post).not.toHaveBeenCalled();
+        expect(get).not.toHaveBeenCalled();
     }, 60000);
 });

@@ -56,16 +56,29 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         this.option('oss', {
             alias: 'o',
             description: 'Default configuration for an OpenSource project on GitHub with CircleCI',
+            default: false,
+            type: Boolean,
         });
 
         this.option('private', {
             alias: 'p',
             description: 'Default configuration for a private project on GitLab with GitLabCi',
+            default: false,
+            type: Boolean,
         });
 
         this.option('local', {
             alias: 'l',
             description: 'Skip all git push and publish steps including CI registration',
+            default: false,
+            type: Boolean,
+        });
+
+        this.option('sign', {
+            alias: 's',
+            description: 'Sign initial git commit',
+            default: true,
+            type: Boolean,
         });
 
         if (envPath && envPath.length > 0) this.log(chalk.green(`using ${envPath} as your environment setup`));
