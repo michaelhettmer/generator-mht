@@ -1,0 +1,45 @@
+{
+    "keywords": [
+        "node",
+        "app",
+        "typescript"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "build:watch": "chokidar --initial --verbose \"src/**/*\" -c \"npm run build\"",
+        <% if (isLib) { %><%- '"start": "npm run build && node dist/index.js",' %><% } %>
+        "lint": "eslint . --ext '.js,.jsx,.ts,.tsx,.json,.jsonc'",
+        "lint:circleci": "docker run --env-file .env -w /data --rm -v $(pwd):/data circleci/circleci-cli:0.1.5879-alpine config validate",
+        "lint:ci": "npm run lint --format junit --output-file ./reports/eslint/results.xml",
+        "lint:fix": "npm run lint --fix",
+        "commitlint": "commitlint",
+        "commitlint:ci": "commitlint-circle",
+        "test": "jest",
+        "test:coverage": "npm run test --coverage --watchAll=false",
+        "test:ci": "CI=true JEST_JUNIT_OUTPUT_DIR=./reports/jest JEST_JUNIT_OUTPUT_NAME=results.xml npm run test:coverage --runInBand --reporters=\"default\" --reporters=\"jest-junit\"",
+        "validate": "npm-run-all lint test build"
+    },
+    "devDependencies": {
+        "@types/jest": "25.1.2",
+        "@typescript-eslint/eslint-plugin": "2.19.2",
+        "@typescript-eslint/parser": "2.19.2",
+        "chokidar-cli": "2.1.0",
+        "eslint": "6.8.0",
+        "eslint-config-prettier": "6.10.0",
+        "eslint-plugin-json": "2.0.1",
+        "eslint-plugin-prettier": "3.1.2",
+        "jest": "25.1.0",
+        "jest-junit": "10.0.0",
+        "jest-mock-console": "1.0.0",
+        "lint-staged": "10.0.7",
+        "npm-run-all": "4.1.5",
+        "prettier": "1.19.1",
+        "ts-jest": "25.2.0",
+        "typescript": "3.7.5"
+    },
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ]
+}

@@ -1,0 +1,128 @@
+version: 2.1
+
+orbs:
+    codecov: codecov/codecov@1.0.5
+
+jobs:
+    checkout:
+        docker:
+            - image: circleci/node:12.16.0
+        steps:
+            - checkout
+            - restore_cache:
+                  keys:
+                      - v1-dependencies-{{ checksum "package.json" }}
+                      - v1-dependencies-
+            - run:
+                  name: Install Dependencies
+                  command: npm ci
+            - save_cache:
+                  paths:
+                      - node_modules
+                  key: v1-dependencies-{{ checksum "package.json" }}
+            - persist_to_workspace:
+                  root: ~/project
+                  paths:
+                      - .
+
+    commitlint:
+        docker:
+            - image: circleci/node:12.16.0
+        steps:
+            - attach_workspace:
+                  at: ~/project
+            - run:
+                  name: Lint relevant commit messages
+                  command: npm run commitlint:ci
+
+    lint:
+        docker:
+            - image: circleci/node:12.16.0
+        steps:
+            - attach_workspace:
+                  at: ~/project
+            - run:
+                  name: Lint TypeScript code
+                  command: npm run lint:ci
+            - persist_to_workspace:
+                  root: ~/project
+                  paths:
+                      - reports/eslint
+
+    test:
+        docker:
+            - image: circleci/node:12.16.0
+        steps:
+            - attach_workspace:
+                  at: ~/project
+            - run:
+                  name: Test TypeScript code
+                  command: npm run test:ci
+            - persist_to_workspace:
+                  root: ~/project
+                  paths:
+                      - coverage
+                      - reports/jest
+
+    codecov:
+        docker:
+            - image: circleci/node:12.16.0
+        steps:
+            - attach_workspace:
+                  at: ~/project
+            - codecov/upload:
+                  file: ./coverage/lcov.info
+
+    build:
+        docker:
+            - image: circleci/node:12.16.0
+        steps:
+            - attach_workspace:
+                  at: ~/project
+            - run:
+                  name: Build TypeScript code
+                  command: npm run build
+            - persist_to_workspace:
+                  root: ~/project
+                  paths:
+                      - .
+            - store_test_results:
+                  path: reports
+            - store_artifacts:
+                  path: reports
+
+    release:
+        docker:
+            - image: circleci/node:12.16.0
+        steps:
+            - attach_workspace:
+                  at: ~/project
+            - run: npx semantic-release
+
+workflows:
+    build:
+        jobs:
+            - checkout
+            - lint:
+                  requires:
+                      - checkout
+            - commitlint:
+                  requires:
+                      - checkout
+            - test:
+                  requires:
+                      - checkout
+            - codecov:
+                  requires:
+                      - test
+            - build:
+                  requires:
+                      - lint
+                      - commitlint
+                      - test
+            - release:
+                  requires:
+                      - build
+                  filters:
+                      branches:
+                          only: master
