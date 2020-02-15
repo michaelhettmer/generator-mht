@@ -73,6 +73,15 @@ jobs:
                   paths:
                       - reports/eslint
 
+    lintejs:
+        <<: *defaults
+        steps:
+            - attach_workspace:
+                  at: ~/repo
+            - run:
+                  name: Lint ejs template files
+                  command: npm run lint:ejs
+
     build:
         <<: *defaults
         steps:
@@ -123,6 +132,9 @@ workflows:
         jobs:
             - checkout
             - lint:
+                  requires:
+                      - checkout
+            - lintejs:
                   requires:
                       - checkout
             - commitlint:
