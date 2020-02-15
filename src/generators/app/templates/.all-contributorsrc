@@ -1,5 +1,4 @@
- 
-{
+ {
   "projectName": "<%= moduleName %>",
   "projectOwner": "MichaelHettmer",
   "imageSize": 100,
