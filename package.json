@@ -46,6 +46,7 @@
         "findup-sync": "4.0.0",
         "lodash.kebabcase": "4.1.1",
         "lodash.startcase": "4.4.0",
+        "table": "5.4.6",
         "yeoman-environment": "2.8.0",
         "yeoman-generator": "4.5.0"
     },
@@ -59,6 +60,7 @@
         "@types/jest": "25.1.2",
         "@types/lodash.kebabcase": "4.1.6",
         "@types/lodash.startcase": "4.4.6",
+        "@types/table": "4.0.7",
         "@types/uuid": "3.4.7",
         "@types/yeoman-assert": "3.1.1",
         "@types/yeoman-environment": "2.3.2",

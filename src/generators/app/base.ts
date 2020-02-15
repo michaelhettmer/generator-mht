@@ -12,6 +12,7 @@ import Generator, { Question } from 'yeoman-generator';
 import kebabCase from 'lodash.kebabcase';
 import axios, { AxiosResponse } from 'axios';
 import chalk from 'chalk';
+import { table } from 'table';
 import createPrompt, { PromptKey } from './prompts';
 
 export const CIProviders = ['CircleCI', 'GitLab', 'no'] as const;
@@ -85,6 +86,18 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         else this.log(chalk.red(`no environment setup found`));
     }
 
+    protected printOptions = () => {
+        this.log(`started ${this.rootGeneratorName()} v${this.rootGeneratorVersion()} with the following options:`);
+        const data = [
+            [chalk.bold('option'), chalk.bold('value')],
+            ['oss', this.options.oss],
+            ['private', this.options.private],
+            ['local', this.options.local],
+            ['sign', this.options.sign],
+        ];
+        this.log(table(data));
+    };
+
     protected getContext = (): { [key: string]: string | boolean } => ({
         ...this.answers,
         repositoryUrl: RepositoryUrls[this.answers.repo],
@@ -94,6 +107,12 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         this.fs.copyTpl(this.templatePath(from), this.destinationPath(to), this.getContext(), {});
 
     protected cps = (from: string, to: string = from) => this.cp(`../../app/templates/${from}`, to);
+
+    protected exs = (from: string, to: string = from) => {
+        this.cps(from);
+        const content = this.fs.readJSON(this.templatePath(from)) ?? {};
+        this.fs.extendJSON(this.destinationPath(to), content);
+    };
 
     protected prompts = async (promptsToExecute: (PromptKey | Question)[]) => {
         this.answers = {
