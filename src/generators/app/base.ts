@@ -75,10 +75,10 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
             type: Boolean,
         });
 
-        this.option('sign', {
+        this.option('skip-signing', {
             alias: 's',
-            description: 'Sign initial git commit',
-            default: true,
+            description: 'Skip signing of the initial git commit',
+            default: false,
             type: Boolean,
         });
 
@@ -93,7 +93,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
             ['oss', this.options.oss],
             ['private', this.options.private],
             ['local', this.options.local],
-            ['sign', this.options.sign],
+            ['skip-signing', this.options['skip-signing']],
         ];
         this.log(table(data));
     };
@@ -109,7 +109,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
     protected cps = (from: string, to: string = from) => this.cp(`../../app/templates/${from}`, to);
 
     protected exs = (from: string, to: string = from) => {
-        this.cps(from);
+        this.cps(from, to);
         const tmpName = `__temp__${from}`;
         this.cp(from, tmpName);
         const content = this.fs.readJSON(this.destinationPath(tmpName)) ?? {};
@@ -291,7 +291,12 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         if (
             this.spawnCommandSync(
                 'git',
-                ['commit', ...(this.options.sign ? ['-S'] : []), '-m', 'feat: initial commit [skip release]'],
+                [
+                    'commit',
+                    ...(this.options['skip-signing'] ? [] : ['-S']),
+                    '-m',
+                    'feat: initial commit [skip release]',
+                ],
                 {
                     stdio: [process.stderr],
                 },
