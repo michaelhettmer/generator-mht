@@ -15,7 +15,7 @@ export default class extends Generator {
         };
         const generatorsMeta = await lookupAsync();
         const generators = Object.keys(generatorsMeta)
-            .filter(g => g.startsWith('mht:') && !g.endsWith('app'))
+            .filter(g => g.startsWith('mht:') && g !== 'mht:app')
             .map(g => g.slice(4));
 
         const answers = await this.prompt([
@@ -28,6 +28,8 @@ export default class extends Generator {
         ]);
 
         process.env.NODE_ENV !== 'test' &&
-            env.run(`mht:${answers.generator}`, (err: null | Error) => console.log('done', err ?? 'without an error'));
+            env.run(`mht:${answers.generator}`, this.options, (err: null | Error) =>
+                console.log('done', err ?? 'without an error'),
+            );
     }
 }

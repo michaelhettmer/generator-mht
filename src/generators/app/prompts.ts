@@ -12,6 +12,7 @@ export type PromptKey = (
     | 'moduleName'
     | 'description'
     | 'devDep'
+    | 'isLib'
     | 'vscode'
     | 'latexDocumentName'
     | 'latexOutDir'
@@ -93,6 +94,15 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as InputQuestion),
+    isLib: params =>
+        ({
+            name: 'isLib',
+            message: 'Is your module a library?',
+            default: false,
+            type: 'confirm',
+            store: true,
+            ...params,
+        } as ConfirmQuestion),
     devDep: params =>
         ({
             name: 'devDep',

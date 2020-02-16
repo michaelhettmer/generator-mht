@@ -10,10 +10,9 @@ module.exports = {
         'plugin:prettier/recommended',
         'plugin:json/recommended',
     ],
-    plugins: ['@typescript-eslint', 'prettier', 'json', 'ejs'],
+    plugins: ['@typescript-eslint', 'prettier', 'json'],
     rules: {
         '@typescript-eslint/no-use-before-define': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
     },
-    root: true,
 };

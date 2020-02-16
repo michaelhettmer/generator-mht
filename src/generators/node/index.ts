@@ -3,13 +3,13 @@ import kebabCase = require('lodash.kebabcase');
 import BaseGenerator, { CommonAnswers } from '../app/base';
 
 export interface Answers extends CommonAnswers {
-    dockerUserName: string;
+    isLib: boolean;
 }
 
 export default class extends BaseGenerator<Answers> {
     constructor(args: string | string[], opts: {}) {
         super(args, opts);
-        this.answers.dockerUserName = 'michaelhettmer';
+        this.answers.isLib = false;
     }
 
     async prompting() {
@@ -22,12 +22,12 @@ export default class extends BaseGenerator<Answers> {
             // default config is already correct
         } else {
             await this.prompts(['ci', 'repo', 'repoUserName', 'repoName']);
-            this.answers.dockerUserName = this.answers.repoUserName.toLowerCase().replace(/\s/g, ''); // reuse repoUserName
             this.answers.authorName = startCase(this.answers.repoUserName); // reuse repoUserName
-            this.answers.moduleName = kebabCase(
-                this.answers.repoName.replace(/^docker-/, '').replace(/\s/g, '-'),
-            ).toLowerCase(); // reuse repoName
-            await this.prompts(['dockerUserName', 'authorName', 'moduleName', 'description', 'devDep', 'vscode']);
+            this.answers.moduleName = kebabCase(this.answers.repoName.replace(/\s/g, '-')).toLowerCase(); // reuse repoName
+            await this.prompts(['authorName', 'moduleName', 'description', 'isLib']);
+            if (this.answers.isLib) await this.prompts(['devDep']);
+            else this.answers.devDep = false;
+            await this.prompts(['vscode']);
         }
     }
 
@@ -36,15 +36,19 @@ export default class extends BaseGenerator<Answers> {
         gitignore && this.fs.write(this.destinationPath('.gitignore'), gitignore);
 
         this.cps('.all-contributorsrc');
-        this.cps('.dockerignore');
         this.cps('.gitattributes');
         this.cps('CONTRIBUTING.md');
         this.cps('CODE_OF_CONDUCT.md');
         this.cps('LICENSE');
         this.cps('README.md');
         this.cps('.npmrc');
+        this.cp('_.eslintignore', '.eslintignore');
+        this.cp('_.eslintrc.js', '.eslintrc.js');
+        this.cp('_.prettierignore', '.prettierignore');
+        this.cp('_.prettierrc.js', '.prettierrc.js');
+        this.cp('.huskyrc.js');
         this.cp('.releaserc');
-        this.cp('Dockerfile');
+        this.cp('lint-staged.config.js');
         this.exs('_package.json', 'package.json');
 
         if (this.answers.vscode) this.cps('.vscode');
@@ -52,7 +56,10 @@ export default class extends BaseGenerator<Answers> {
         if (this.answers.ci === 'GitLab') this.cp('.gitlab-ci.yml');
         else if (this.answers.ci === 'CircleCI') this.cp('.circleci');
 
-        if (this.answers.repo === 'GitHub') this.cps('.github');
+        if (this.answers.repo === 'GitHub') {
+            this.cps('.github');
+            this.exs('.github/renovate.json');
+        }
     }
 
     async install() {

@@ -2,3 +2,5 @@
 /dist
 /generators
 node_modules
+
+**/templates

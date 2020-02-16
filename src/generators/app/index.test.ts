@@ -6,7 +6,8 @@ describe('mht:app', () => {
     it('successfully starts the generator and returns without an error', async () => {
         const result = await helpers
             .run(path.join(__dirname, '../../../generators/app'))
-            .withPrompts({ generator: 'latex' });
+            .withPrompts({ generator: 'latex' })
+            .withOptions({ local: true, 'skip-signing': true, 'skip-installation': true });
         assert.ok(result, 'successfully started');
     });
 });

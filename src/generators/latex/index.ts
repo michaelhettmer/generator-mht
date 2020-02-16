@@ -14,6 +14,8 @@ export default class extends BaseGenerator<Answers> {
     }
 
     async prompting() {
+        this.printOptions();
+
         if (this.options.oss) {
             this.answers.repo = 'GitHub';
             this.answers.ci = 'CircleCI';
@@ -46,7 +48,7 @@ export default class extends BaseGenerator<Answers> {
 
         if (this.answers.vscode) {
             this.cp('.devcontainer');
-            this.cp('.vscode');
+            this.exs('.vscode/settings.json');
         }
 
         if (this.answers.ci === 'GitLab') {

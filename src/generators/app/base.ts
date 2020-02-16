@@ -12,6 +12,7 @@ import Generator, { Question } from 'yeoman-generator';
 import kebabCase from 'lodash.kebabcase';
 import axios, { AxiosResponse } from 'axios';
 import chalk from 'chalk';
+import { table } from 'table';
 import createPrompt, { PromptKey } from './prompts';
 
 export const CIProviders = ['CircleCI', 'GitLab', 'no'] as const;
@@ -74,16 +75,35 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
             type: Boolean,
         });
 
-        this.option('sign', {
+        this.option('skip-signing', {
             alias: 's',
-            description: 'Sign initial git commit',
-            default: true,
+            description: 'Skip signing of the initial git commit',
+            default: false,
+            type: Boolean,
+        });
+
+        this.option('skip-installation', {
+            alias: 'i',
+            description: 'Skip installation of npm dependencies',
+            default: false,
             type: Boolean,
         });
 
         if (envPath && envPath.length > 0) this.log(chalk.green(`using ${envPath} as your environment setup`));
         else this.log(chalk.red(`no environment setup found`));
     }
+
+    protected printOptions = () => {
+        this.log(`started ${this.rootGeneratorName()} v${this.rootGeneratorVersion()} with the following options:`);
+        const data = [
+            [chalk.bold('option'), chalk.bold('value')],
+            ['oss', this.options.oss],
+            ['private', this.options.private],
+            ['local', this.options.local],
+            ['skip-signing', this.options['skip-signing']],
+        ];
+        this.log(table(data));
+    };
 
     protected getContext = (): { [key: string]: string | boolean } => ({
         ...this.answers,
@@ -94,6 +114,15 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         this.fs.copyTpl(this.templatePath(from), this.destinationPath(to), this.getContext(), {});
 
     protected cps = (from: string, to: string = from) => this.cp(`../../app/templates/${from}`, to);
+
+    protected exs = (from: string, to: string = from) => {
+        this.cps(from, to);
+        const tmpName = `__temp__${from}`;
+        this.cp(from, tmpName);
+        const content = this.fs.readJSON(this.destinationPath(tmpName)) ?? {};
+        this.fs.extendJSON(this.destinationPath(to), content);
+        this.fs.delete(this.destinationPath(tmpName));
+    };
 
     protected prompts = async (promptsToExecute: (PromptKey | Question)[]) => {
         this.answers = {
@@ -267,15 +296,24 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
     protected initialCommitSync = () => {
         this.spawnCommandSync('git', ['add', '.']);
         if (
-            this.spawnCommandSync('git', ['commit', '-S', '-m', 'feat: initial commit [skip release]'], {
-                stdio: [process.stderr],
-            })
+            this.spawnCommandSync(
+                'git',
+                [
+                    'commit',
+                    ...(this.options['skip-signing'] ? [] : ['-S']),
+                    '-m',
+                    'feat: initial commit [skip release]',
+                ],
+                {
+                    stdio: [process.stderr],
+                },
+            )
         )
             this.log(chalk.green(`successfully commited generated files as initial commit`));
         else this.log(chalk.red(`failed to commit generated files as initial commit`));
     };
 
-    protected npmInstallSync = () => this.spawnCommandSync('npm', ['install']);
+    protected npmInstallSync = () => !this.options['skip-installation'] && this.spawnCommandSync('npm', ['install']);
 
     protected fetchGitIgnore = async (type: string): Promise<string | undefined> => {
         try {

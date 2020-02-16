@@ -111,3 +111,6 @@ dist
 
 # tmp directory to test generator scaffolding
 tmp
+
+# eslint results
+reports

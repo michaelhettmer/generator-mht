@@ -1,0 +1,8 @@
+{
+    "keywords": [
+        "docker"
+    ],
+    "devDependencies": {
+        "semantic-release-docker": "2.2.0"
+    }
+}

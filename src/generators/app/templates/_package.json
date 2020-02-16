@@ -2,9 +2,6 @@
     "name": "<%= moduleName %>",
     "version": "1.0.0",
     "description": "<%= description %>",
-    "keywords": [
-        "docker"
-    ],
     "author": "<%= repoUserName %>",
     "license": "MIT",
     "homepage": "https://<%= repositoryUrl %>/<%= repoUserName %>/<%= repoName %>#readme",
@@ -19,7 +16,6 @@
         "commitlint": "commitlint",
         "commitlint:ci": "commitlint-circle"
     },
-    "dependencies": {},
     "devDependencies": {
         "@commitlint/cli": "8.3.5",
         "@commitlint/config-conventional": "8.3.4",
@@ -28,8 +24,7 @@
         "commitlint-circle": "1.0.0",
         "husky": "4.2.3",
         "lint-staged": "10.0.7",
-        "semantic-release": "17.0.3",
-        "semantic-release-docker": "2.2.0"
+        "semantic-release": "17.0.3"
     },
     "engines": {
         "node": ">=8.0.0"
