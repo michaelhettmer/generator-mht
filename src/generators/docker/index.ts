@@ -45,7 +45,7 @@ export default class extends BaseGenerator<Answers> {
         this.cps('.npmrc');
         this.cp('.releaserc');
         this.cp('Dockerfile');
-        this.exs('package.json');
+        this.exs('_package.json', 'package.json');
 
         if (this.answers.vscode) this.cps('.vscode');
 
