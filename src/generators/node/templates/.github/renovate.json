@@ -9,8 +9,7 @@
         ":automergeMinor",
         ":assignAndReview(<%= repoUserName %>)",
         ":enableVulnerabilityAlertsWithLabel(vulnerability)",
-        ":renovatePrefix",
-        <% if (isLib) { %><%- `":pinOnlyDevDependencies",` %><% } %>
+        ":renovatePrefix",<% if (isLib) { %><%- `\n":pinOnlyDevDependencies",` %><% } %>
         ":rebaseStalePrs"
     ]
 }
