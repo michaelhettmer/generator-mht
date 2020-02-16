@@ -1,16 +1,23 @@
 {
     "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs",
-        "lib": ["es6"],
-        "rootDir": "src",
-        "outDir": "./dist",
-        "strict": true,
+        "allowJs": true,
         "declaration": true,
+        "downlevelIteration": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
         "importHelpers": true,
+        "isolatedModules": true,
+        "lib": ["es6"],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "outDir": "./dist",
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "rootDir": "src",
         "sourceMap": true,
-        "esModuleInterop": true
+        "strict": true,
+        "target": "es6"
     },
     "include": ["src"],
-    "exclude": ["node_modules", "dist", "**/*.test.ts"]
+    "exclude": ["dist", "node_modules", "**/*.test.ts"]
 }

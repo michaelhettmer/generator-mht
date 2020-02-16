@@ -1,16 +1,23 @@
 {
     "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs",
-        "lib": ["es6"],
-        "rootDir": "src",
-        "outDir": ".",
-        "strict": true,
+        "allowJs": true,
         "declaration": true,
+        "downlevelIteration": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
         "importHelpers": true,
+        "isolatedModules": true,
+        "lib": ["es6"],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "outDir": ".",
+        "resolveJsonModule": true,
+        "rootDir": "src",
+        "skipLibCheck": true,
         "sourceMap": true,
-        "esModuleInterop": true
+        "strict": true,
+        "target": "es6"
     },
     "include": ["src"],
-    "exclude": ["node_modules", "./generators", "dist", "**/*.test.ts", "**/templates"]
+    "exclude": ["dist", "./generators", "node_modules", "**/*.test.ts", "**/templates"]
 }
