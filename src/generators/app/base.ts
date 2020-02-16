@@ -289,9 +289,13 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
     protected initialCommitSync = () => {
         this.spawnCommandSync('git', ['add', '.']);
         if (
-            this.spawnCommandSync('git', ['commit', '-S', '-m', 'feat: initial commit [skip release]'], {
-                stdio: [process.stderr],
-            })
+            this.spawnCommandSync(
+                'git',
+                ['commit', ...(this.options.sign ? ['-S'] : []), '-m', 'feat: initial commit [skip release]'],
+                {
+                    stdio: [process.stderr],
+                },
+            )
         )
             this.log(chalk.green(`successfully commited generated files as initial commit`));
         else this.log(chalk.red(`failed to commit generated files as initial commit`));
