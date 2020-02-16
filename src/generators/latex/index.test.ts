@@ -11,7 +11,7 @@ describe('mht:latex', () => {
 
         const result = await helpers
             .run(path.join(__dirname, '../../../generators/latex'))
-            .withOptions({ local: true, 'skip-signing': true })
+            .withOptions({ local: true, 'skip-signing': true, 'skip-installation': true })
             .withPrompts({
                 ci: 'GitLab',
                 repo: 'GitLab',

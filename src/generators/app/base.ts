@@ -82,6 +82,13 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
             type: Boolean,
         });
 
+        this.option('skip-installation', {
+            alias: 'i',
+            description: 'Skip installation of npm dependencies',
+            default: false,
+            type: Boolean,
+        });
+
         if (envPath && envPath.length > 0) this.log(chalk.green(`using ${envPath} as your environment setup`));
         else this.log(chalk.red(`no environment setup found`));
     }
@@ -306,7 +313,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         else this.log(chalk.red(`failed to commit generated files as initial commit`));
     };
 
-    protected npmInstallSync = () => this.spawnCommandSync('npm', ['install']);
+    protected npmInstallSync = () => !this.options['skip-installation'] && this.spawnCommandSync('npm', ['install']);
 
     protected fetchGitIgnore = async (type: string): Promise<string | undefined> => {
         try {
