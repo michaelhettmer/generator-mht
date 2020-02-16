@@ -1,0 +1,16 @@
+{
+    "extends": [
+        "config:js-app",
+        ":automergeBranch",
+        ":automergeLinters",
+        ":automergeTesters",
+        ":automergeTypes",
+        ":automergePatch",
+        ":automergeMinor",
+        ":assignAndReview(<%= repoUserName %>)",
+        ":enableVulnerabilityAlertsWithLabel(vulnerability)",
+        ":renovatePrefix",
+        <% if (isLib) { %><%- `":pinOnlyDevDependencies",` %><% } %>
+        ":rebaseStalePrs"
+    ]
+}

@@ -50,7 +50,10 @@ export default class extends BaseGenerator<Answers> {
         if (this.answers.ci === 'GitLab') this.cp('.gitlab-ci.yml');
         else if (this.answers.ci === 'CircleCI') this.cp('.circleci');
 
-        if (this.answers.repo === 'GitHub') this.cps('.github');
+        if (this.answers.repo === 'GitHub') {
+            this.cps('.github');
+            this.exs('.github/renovate.json');
+        }
     }
 
     async install() {
