@@ -42,8 +42,12 @@ export default class extends BaseGenerator<Answers> {
         this.cps('LICENSE');
         this.cps('README.md');
         this.cps('.npmrc');
+        this.cp('_.eslintignore.json', '.eslintignore.json');
+        this.cp('_.eslintrc.js', '.eslintrc.js');
+        this.cp('_.prettierignore.json', '.prettierignore.json');
+        this.cp('_.prettierrc.js', '.prettierrc.js');
         this.cp('.releaserc');
-        this.exs('package.json');
+        this.exs('_package.json', 'package.json');
 
         if (this.answers.vscode) this.cps('.vscode');
 
