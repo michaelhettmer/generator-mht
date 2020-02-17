@@ -9,5 +9,5 @@ describe('mht:app', () => {
             .withPrompts({ generator: 'latex' })
             .withOptions({ local: true, 'skip-signing': true, 'skip-installation': true });
         assert.ok(result, 'successfully started');
-    });
+    }, 60000);
 });
