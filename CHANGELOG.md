@@ -1,6 +1,8 @@
-# [1.6.0](https://github.com/MichaelHettmer/generator-mht/compare/v1.5.0...v1.6.0) (2020-02-17)
+## [1.6.1](https://github.com/MichaelHettmer/generator-mht/compare/v1.6.0...v1.6.1) (2020-02-17)
 
 
-### Features
+### Bug Fixes
 
-* add commitlint config to generators ([dec12b7](https://github.com/MichaelHettmer/generator-mht/commit/dec12b7c7fb6f60f1324346b0b0dc9f2fa4b104a))
+* add missing node test and fix small file testing issues ([ac68b84](https://github.com/MichaelHettmer/generator-mht/commit/ac68b8444bb3d6d467a49f815e00404446232eb9))
+* correct sharing of huskyrc ([ecec60f](https://github.com/MichaelHettmer/generator-mht/commit/ecec60f587ea1a4ae9553990bad5203f1b519758))
+* correct typo in lint-staged ejs template ([858e06a](https://github.com/MichaelHettmer/generator-mht/commit/858e06af3d0b6de6f27721c3e5b8b9eb1a3bd8fa))
