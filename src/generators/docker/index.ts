@@ -36,6 +36,7 @@ export default class extends BaseGenerator<Answers> {
         gitignore && this.fs.write(this.destinationPath('.gitignore'), gitignore);
 
         this.cps('.all-contributorsrc');
+        this.cps('.commitlintrc.js');
         this.cps('.dockerignore');
         this.cps('.gitattributes');
         this.cps('CONTRIBUTING.md');

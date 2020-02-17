@@ -39,6 +39,7 @@ export default class extends BaseGenerator<Answers> {
 
     async writing() {
         this.cps('.all-contributorsrc');
+        this.cps('.commitlintrc.js');
         this.cps('.gitattributes');
         this.cps('CONTRIBUTING.md');
         this.cps('CODE_OF_CONDUCT.md');
