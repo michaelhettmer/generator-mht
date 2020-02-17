@@ -19,15 +19,19 @@ describe('mht:latex', () => {
         assert.ok(result, 'generator result is invalid');
         assert.file([
             '.all-contributorsrc',
+            '.commitlintrc.js',
             '.gitattributes',
             'CONTRIBUTING.md',
             'CODE_OF_CONDUCT.md',
             'LICENSE',
+            'lint-staged.config.js',
             'README.md',
+            '.gitignore',
             '.devcontainer',
             '.vscode',
             '.gitlab-ci.yml',
         ]);
+        assert.noFile('.github');
 
         expect(post).not.toHaveBeenCalled();
         expect(get).not.toHaveBeenCalled();

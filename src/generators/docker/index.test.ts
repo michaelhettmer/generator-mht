@@ -18,19 +18,22 @@ describe('mht:docker', () => {
             } as Partial<Answers>);
         assert.ok(result, 'generator result is invalid');
         assert.file([
-            '.circleci',
-            '.vscode',
             '.all-contributorsrc',
+            '.commitlintrc.js',
             '.dockerignore',
             '.gitattributes',
             'CONTRIBUTING.md',
             'CODE_OF_CONDUCT.md',
             'LICENSE',
+            'lint-staged.config.js',
             'README.md',
             '.npmrc',
             '.releaserc',
             'Dockerfile',
             'package.json',
+            '.vscode',
+            '.circleci',
+            '.github',
         ]);
         assert.noFile(['.gitlab-ci.yml']);
 
