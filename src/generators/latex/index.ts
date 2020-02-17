@@ -42,11 +42,13 @@ export default class extends BaseGenerator<Answers> {
         this.cps('.commitlintrc.js');
         this.cps('.gitattributes');
         this.cps('.huskyrc.js');
+        this.cps('.npmrc');
         this.cps('CONTRIBUTING.md');
         this.cps('CODE_OF_CONDUCT.md');
         this.cps('LICENSE');
         this.cps('lint-staged.config.js');
         this.cps('README.md');
+        this.cps('_package.json', 'package.json');
         this.cp('.gitignore');
 
         if (this.answers.vscode) {

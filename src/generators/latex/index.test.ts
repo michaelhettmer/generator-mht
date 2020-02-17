@@ -30,6 +30,8 @@ describe('mht:latex', () => {
             '.devcontainer',
             '.vscode',
             '.gitlab-ci.yml',
+            '.gitignore',
+            'package.json',
         ]);
         assert.noFile('.github');
 
