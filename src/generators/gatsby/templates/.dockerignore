@@ -1,0 +1,5 @@
+__mocks__
+.cache
+.idea
+.vscode
+node_modules
