@@ -2,7 +2,7 @@ import yeoman from 'yeoman-environment';
 import BaseGenerator, { CommonAnswers } from '../app/base';
 import { EmptyAdapter } from '../app/emptyAdapter';
 
-const env = yeoman.createEnv([], {}, new EmptyAdapter());
+const env = yeoman.createEnv([], {}, process.env.NODE_ENV === 'test' ? new EmptyAdapter() : undefined);
 env.register(require.resolve('../node'));
 
 export interface Answers extends CommonAnswers {
@@ -23,13 +23,15 @@ export default class extends BaseGenerator<Answers> {
             'mht:node',
             { ...this.options, local: true, 'skip-git': true, 'skip-installation': true },
             (err: null | Error) => {
-                if (err) this.log(err.message);
+                if (err) this.log(`${err.stack}\n${err.name}: ${err.message}`);
                 else done();
             },
         );
+        this.log('test3');
     }
 
     end() {
+        this.log('test4');
         this.cp('__mocks__');
         this.cp('src');
         this.cp('_.stylelintrc.json', '.stylelintrc.json');
