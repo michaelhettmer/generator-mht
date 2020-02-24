@@ -1,5 +1,8 @@
+/.cache
+/build
 /coverage
 /dist
+/public
 
 # eslint ignores hidden files by default
 !.*

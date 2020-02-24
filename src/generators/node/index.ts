@@ -44,15 +44,17 @@ export default class extends BaseGenerator<Answers> {
         this.cps('CODE_OF_CONDUCT.md');
         this.cps('LICENSE');
         this.cps('README.md');
-        this.cp('lint-staged.config.js');
         this.cp('_.eslintignore', '.eslintignore');
-        this.cp('_.eslintrc.js', '.eslintrc.js');
+        this.cp('_.eslintrc.json', '.eslintrc.json');
         this.cp('_.prettierignore', '.prettierignore');
         this.cp('_.prettierrc.js', '.prettierrc.js');
-        this.cp('.releaserc');
         this.exs('_package.json', 'package.json');
+        this.cp('.releaserc');
+        this.cp('jest.config.js');
+        this.cp('lint-staged.config.js');
+        this.cp('tsconfig.json');
 
-        if (this.answers.vscode) this.cps('.vscode');
+        if (this.answers.vscode) this.exs('.vscode/settings.json');
 
         if (this.answers.ci === 'GitLab') this.cp('.gitlab-ci.yml');
         else if (this.answers.ci === 'CircleCI') this.cp('.circleci');

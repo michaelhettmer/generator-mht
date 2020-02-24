@@ -4,6 +4,8 @@
 import dotenv from 'dotenv';
 import findup from 'findup-sync';
 import os from 'os';
+import fs from 'fs';
+import deepMerge from 'deepmerge';
 
 export const envPath = findup('.env') ?? findup('.generator-mht/.env', { cwd: `${os.homedir()}` });
 envPath && dotenv.config({ path: envPath });
@@ -75,6 +77,13 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
             type: Boolean,
         });
 
+        this.option('skip-git', {
+            alias: 'g',
+            description: 'Skip initializing a git repository and prevent initial commit',
+            default: false,
+            type: Boolean,
+        });
+
         this.option('skip-signing', {
             alias: 's',
             description: 'Skip signing of the initial git commit',
@@ -100,7 +109,9 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
             ['oss', this.options.oss],
             ['private', this.options.private],
             ['local', this.options.local],
+            ['skip-git', this.options['skip-git']],
             ['skip-signing', this.options['skip-signing']],
+            ['skip-installation', this.options['skip-installation']],
         ];
         this.log(table(data));
     };
@@ -114,6 +125,21 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         this.fs.copyTpl(this.templatePath(from), this.destinationPath(to), this.getContext(), {});
 
     protected cps = (from: string, to: string = from) => this.cp(`../../app/templates/${from}`, to);
+
+    protected cpr = (from: string, to: string = from) => {
+        fs.unlinkSync(this.destinationPath(to));
+        this.cp(from, to);
+    };
+
+    protected ex = (from: string, to: string = from) => {
+        const oldContent = JSON.parse(fs.readFileSync(this.destinationPath(to)).toString()) ?? {};
+        const content = this.fs.readJSON(this.templatePath(from)) ?? {};
+        fs.unlinkSync(this.destinationPath(to));
+        this.fs.writeJSON(
+            this.destinationPath(to),
+            deepMerge(oldContent, content, { arrayMerge: (_destinationArray, sourceArray) => sourceArray }),
+        );
+    };
 
     protected exs = (from: string, to: string = from) => {
         this.cps(from, to);
@@ -291,9 +317,21 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         }
     };
 
-    protected initGitSync = () => this.spawnCommandSync('git', ['init']);
+    protected initGitSync = () => {
+        if (this.options['skip-git']) {
+            this.log(chalk.yellow(`skip initializing git`));
+            return;
+        }
+
+        this.spawnCommandSync('git', ['init']);
+    };
 
     protected initialCommitSync = () => {
+        if (this.options['skip-git']) {
+            this.log(chalk.yellow(`skip initial commit to git because it was not initialized`));
+            return;
+        }
+
         this.spawnCommandSync('git', ['add', '.']);
         if (
             this.spawnCommandSync(
