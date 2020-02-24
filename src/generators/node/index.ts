@@ -47,7 +47,7 @@ export default class extends BaseGenerator<Answers> {
         this.cp('_.eslintignore', '.eslintignore');
         this.cp('_.eslintrc.json', '.eslintrc.json');
         this.cp('_.prettierignore', '.prettierignore');
-        this.cp('_.prettierrc.js', '.prettierrc.js');
+        this.cp('_.prettierrc.json', '.prettierrc.json');
         this.exs('_package.json', 'package.json');
         this.cp('.releaserc');
         this.cp('jest.config.js');

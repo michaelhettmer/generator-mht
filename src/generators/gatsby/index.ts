@@ -1,7 +1,8 @@
 import yeoman from 'yeoman-environment';
 import BaseGenerator, { CommonAnswers } from '../app/base';
+import { EmptyAdapter } from '../app/emptyAdapter';
 
-const env = yeoman.createEnv([], {});
+const env = yeoman.createEnv([], {}, new EmptyAdapter());
 env.register(require.resolve('../node'));
 
 export interface Answers extends CommonAnswers {
@@ -18,10 +19,14 @@ export default class extends BaseGenerator<Answers> {
 
     initializing() {
         const done = this.async();
-        env.run('mht:node', { local: true, 'skip-git': true, 'skip-installation': true }, (err: null | Error) => {
-            if (err) this.log(err.message);
-            else done();
-        });
+        env.run(
+            'mht:node',
+            { ...this.options, local: true, 'skip-git': true, 'skip-installation': true },
+            (err: null | Error) => {
+                if (err) this.log(err.message);
+                else done();
+            },
+        );
     }
 
     end() {

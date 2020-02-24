@@ -4,6 +4,30 @@ import assert from 'yeoman-assert';
 import axios from 'axios';
 import { Answers } from './index';
 
+export const files = [
+    '.gitignore',
+    '.all-contributorsrc',
+    '.commitlintrc.js',
+    '.gitattributes',
+    'CONTRIBUTING.md',
+    '.huskyrc.js',
+    '.npmrc',
+    'CODE_OF_CONDUCT.md',
+    'LICENSE',
+    'README.md',
+    '.eslintignore',
+    '.eslintrc.json',
+    '.prettierignore',
+    '.prettierrc.json',
+    'package.json',
+    '.releaserc',
+    'jest.config.js',
+    'lint-staged.config.js',
+    'tsconfig.json',
+    '.vscode',
+    '.github',
+];
+
 describe('mht:node', () => {
     it('successfully copies all files into destination in local mode without network requests', async () => {
         const post = jest.spyOn(axios, 'post');
@@ -11,33 +35,13 @@ describe('mht:node', () => {
 
         const result = await helpers
             .run(path.join(__dirname, '../../../generators/node'))
-            .withOptions({ local: true, 'skip-signing': true, 'skip-installation': true })
+            .withOptions({ local: true, 'skip-signing': true, 'skip-git': true, 'skip-installation': true })
             .withPrompts({
                 ci: 'CircleCI',
                 repo: 'GitHub',
             } as Partial<Answers>);
         assert.ok(result, 'generator result is invalid');
-        assert.file([
-            '.gitignore',
-            '.all-contributorsrc',
-            '.commitlintrc.js',
-            '.gitattributes',
-            'CONTRIBUTING.md',
-            '.huskyrc.js',
-            '.npmrc',
-            'CODE_OF_CONDUCT.md',
-            'LICENSE',
-            'README.md',
-            'lint-staged.config.js',
-            '.eslintignore',
-            '.eslintrc.js',
-            '.prettierignore',
-            '.prettierrc.js',
-            '.releaserc',
-            'package.json',
-            '.vscode',
-            '.github',
-        ]);
+        assert.file(files);
         assert.noFile('.gitlab-ci.yml');
 
         expect(post).not.toHaveBeenCalled();

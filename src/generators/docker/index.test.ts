@@ -11,7 +11,7 @@ describe('mht:docker', () => {
 
         const result = await helpers
             .run(path.join(__dirname, '../../../generators/docker'))
-            .withOptions({ local: true, 'skip-signing': true, 'skip-installation': true })
+            .withOptions({ local: true, 'skip-signing': true, 'skip-git': true, 'skip-installation': true })
             .withPrompts({
                 ci: 'CircleCI',
                 repo: 'GitHub',
