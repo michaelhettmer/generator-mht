@@ -1,4 +1,5 @@
 import yeoman from 'yeoman-environment';
+import kebabCase from 'lodash.kebabcase';
 import BaseGenerator, { CommonAnswers } from '../app/base';
 import { EmptyAdapter } from '../app/emptyAdapter';
 
@@ -6,17 +7,11 @@ const env = yeoman.createEnv([], {}, process.env.NODE_ENV === 'test' ? new Empty
 env.register(require.resolve('../node'));
 
 export interface Answers extends CommonAnswers {
-    useRedux: boolean; // TODO
+    redux: boolean; // TODO
     dockerTag: string; // TODO
 }
 
 export default class extends BaseGenerator<Answers> {
-    constructor(args: string | string[], opts: {}) {
-        super(args, opts);
-        this.answers.useRedux = true;
-        this.answers.dockerTag = this.answers.moduleName;
-    }
-
     initializing() {
         const done = this.async();
         env.run(
@@ -28,6 +23,12 @@ export default class extends BaseGenerator<Answers> {
             },
         );
         this.log('test3');
+    }
+
+    async prompting() {
+        this.answers.redux = true;
+        this.answers.dockerTag = kebabCase(this.answers.repoName.replace(/\s/g, '-')).toLowerCase();
+        await this.prompts(['redux', 'dockerTag']);
     }
 
     end() {
