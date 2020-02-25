@@ -94,7 +94,7 @@
         "serve": "gatsby serve",
         "build": "gatsby build",
         "build:serve": "npm run build && gatsby serve",
-        "build:docker": "gatsby build && docker build -t <%= dockerTag %>",
+        "build:docker": "gatsby build && docker build -t <%= dockerTag %> .",
         "clean": "gatsby clean",
         "typecheck": "tsc --noEmit",
         "test": "jest",

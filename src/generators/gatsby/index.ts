@@ -8,31 +8,34 @@ env.register(require.resolve('../node'));
 
 export interface Answers extends CommonAnswers {
     redux: boolean; // TODO
-    dockerTag: string; // TODO
+    dockerTag: string;
 }
 
 export default class extends BaseGenerator<Answers> {
     initializing() {
         const done = this.async();
         env.run(
-            'mht:node',
+            require.resolve('../node'),
             { ...this.options, local: true, 'skip-git': true, 'skip-installation': true },
             (err: null | Error) => {
                 if (err) this.log(`${err.stack}\n${err.name}: ${err.message}`);
                 else done();
             },
         );
-        this.log('test3');
     }
 
     async prompting() {
+        this.answers.dockerUserName = this.answers.repoUserName.toLowerCase().replace(/\s/g, '');
+        await this.prompts(['dockerUserName']);
         this.answers.redux = true;
-        this.answers.dockerTag = kebabCase(this.answers.repoName.replace(/\s/g, '-')).toLowerCase();
+        const repoName = kebabCase(this.answers.repoName.replace(/\s/g, '-')).toLowerCase();
+        if (this.answers.repo === 'GitLab')
+            this.answers.dockerTag = `registry.gitlab.com/${this.answers.repoUserName}/${this.answers.repoName}/${repoName}:latest`;
+        else this.answers.dockerTag = `${this.answers.dockerUserName}/${repoName}`;
         await this.prompts(['redux', 'dockerTag']);
     }
 
     end() {
-        this.log('test4');
         this.cp('__mocks__');
         this.cp('src');
         this.cp('_.stylelintrc.json', '.stylelintrc.json');
