@@ -104,9 +104,6 @@ jobs:
             - attach_workspace:
                   at: ~/repo
             - run:
-                  name: Link generators
-                  command: npm link
-            - run:
                   name: Test TypeScript code
                   command: npm run test:ci
             - persist_to_workspace:

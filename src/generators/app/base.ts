@@ -132,8 +132,12 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
     };
 
     protected ex = (from: string, to: string = from) => {
+        const tmpName = `__temp__${from}`;
+        this.cp(from, tmpName);
+        const content = this.fs.readJSON(this.destinationPath(tmpName)) ?? {};
+        this.fs.delete(this.destinationPath(tmpName));
+
         const oldContent = JSON.parse(fs.readFileSync(this.destinationPath(to)).toString()) ?? {};
-        const content = this.fs.readJSON(this.templatePath(from)) ?? {};
         fs.unlinkSync(this.destinationPath(to));
         this.fs.writeJSON(
             this.destinationPath(to),
