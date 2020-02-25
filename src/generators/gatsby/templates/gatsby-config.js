@@ -3,6 +3,7 @@
 module.exports = {
     siteMetadata: {
         author: `<%= authorName %>`,
+        defaultTitle: `<%= moduleName %>`
     },
     plugins: [
         'gatsby-plugin-remove-console',
@@ -36,13 +37,6 @@ module.exports = {
             },
         },
         `gatsby-transformer-json`,
-        {
-            resolve: `gatsby-source-filesystem`,
-            options: {
-                path: `${__dirname}/src/locales`,
-                name: 'locales',
-            },
-        },
         `gatsby-plugin-react-helmet-async`,
         {
             resolve: `gatsby-plugin-root-import`,
