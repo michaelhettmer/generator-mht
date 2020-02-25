@@ -7,7 +7,7 @@ const env = yeoman.createEnv([], {}, process.env.NODE_ENV === 'test' ? new Empty
 env.register(require.resolve('../node'));
 
 export interface Answers extends CommonAnswers {
-    redux: boolean; // TODO
+    redux: boolean;
     dockerTag: string;
 }
 

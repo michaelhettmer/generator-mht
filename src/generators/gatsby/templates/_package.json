@@ -3,12 +3,18 @@
         "node",
         "app",
         "typescript",
+        <% if(redux) { %>
+        "redux",
+        <% } %>
         "gatsby"
     ],
     "dependencies": {
         "@material-ui/core": "^4.9.0",
         "@material-ui/icons": "^4.5.1",
         "@material-ui/lab": "^4.0.0-alpha.40",
+        <% if(redux) { %>
+        "@reduxjs/toolkit": "1.2.5",
+        <% } %>
         "@svgr/webpack": "^5.1.0",
         "axios": "^0.19.2",
         "classnames": "^2.2.6",
@@ -27,6 +33,17 @@
         "react": "^16.12.0",
         "react-dom": "^16.12.0",
         "react-helmet-async": "^1.0.4",
+        <% if(redux) { %>
+        "react-redux": "7.2.0",
+        "redux": "4.0.5",
+        "redux-devtools-extension": "2.13.8",
+        "redux-logger": "3.0.6",
+        "redux-mock-store": "1.5.4",
+        "redux-persist": "6.0.0",
+        "redux-root-saga": "1.1.3",
+        "redux-saga": "1.1.3",
+        "reselect": "4.0.0",
+        <% } %>
         "uuid": "^3.4.0"
     },
     "devDependencies": {
