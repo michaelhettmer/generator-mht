@@ -33,9 +33,7 @@ export default class extends BaseGenerator<Answers> {
             this.answers.dockerTag = `registry.gitlab.com/${this.answers.repoUserName}/${this.answers.repoName}/${repoName}:latest`;
         else this.answers.dockerTag = `${this.answers.dockerUserName}/${repoName}`;
         await this.prompts(['redux', 'dockerTag']);
-    }
 
-    end() {
         this.cp('__mocks__');
         this.cp('src');
         this.cp('_.stylelintrc.json', '.stylelintrc.json');
@@ -55,5 +53,21 @@ export default class extends BaseGenerator<Answers> {
         this.ex('_.eslintrc.json', '.eslintrc.json');
         this.ex('_package.json', 'package.json');
         this.ex('tsconfig.json');
+    }
+
+    async install() {
+        this.initGitSync();
+        this.npmInstallSync();
+        this.initialCommitSync();
+
+        await this.createGitHubProjectAndPush();
+        await this.followGitHubProjectWithCircleCI();
+    }
+
+    end() {
+        if (this.answers.repo === 'GitHub') {
+            this.log('make sure you configure all used bots / services manually, if it will not happen automatically');
+            this.log('https://github.com/settings/installations');
+        }
     }
 }
