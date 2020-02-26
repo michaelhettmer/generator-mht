@@ -13,7 +13,6 @@
 [![MIT License][license-badge]][license]
 [![Semantic Release][release-badge]][release]
 [![Conventional Commits][commits-badge]][commits]
-
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg)](#contributors-)
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
