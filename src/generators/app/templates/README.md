@@ -102,11 +102,9 @@ Thanks goes to these people ([emoji key][emojis]):
 This project follows the [all-contributors][all-contributors] specification.
 Contributions of any kind welcome!
 
-The README.md format is heavily inspired by @kentcdodds. Thank you for your awesome work!
-
 ## LICENSE
 
-MIT
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <!-- prettier-ignore-start -->
 [npm]: https://www.npmjs.com
