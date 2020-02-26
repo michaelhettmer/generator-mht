@@ -41,16 +41,10 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## ⚙️ Installation
+## ⚡️ Getting Started
 
 This module is distributed via [npm][npm] which is bundled with [node][node] and
-should be installed as one of your project's `dependencies`:
-
-```
-npm install --save generator-mht
-```
-
-## ⚡️ Getting Started
+should be run directly using npx (recommended) or installed as a global dependency.
 
 ### Running without an installation
 
