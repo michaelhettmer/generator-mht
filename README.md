@@ -1,4 +1,10 @@
-# Generator LaTeX starter templates
+<div align="center">
+<h1>MHT Generator - My Yeoman templates</h1>
+
+<p>Battle-tested configurations and setups meet personal preference and the laziness of a programmer.</p>
+</div>
+
+---
 
 [![license](https://img.shields.io/npm/l/generator-mht)](https://github.com/MichaelHettmer/generator-mht/blob/master/LICENSE.md)
 [![circleci](https://circleci.com/gh/MichaelHettmer/generator-mht.svg?style=shield)](https://circleci.com/gh/MichaelHettmer/generator-mht)
