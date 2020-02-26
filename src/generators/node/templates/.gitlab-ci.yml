@@ -1,0 +1,36 @@
+image: node:12.14.1-alpine3.11
+
+cache:
+    paths:
+        - node_modules
+
+stages:
+    - test
+    - build
+
+before_script:
+    - npm ci
+
+lint:
+    stage: test
+    script:
+        - npm run lint
+    only:
+        - master
+        - merge_requests
+
+test:
+    stage: test
+    script:
+        - npm run test
+    only:
+        - master
+        - merge_requests
+
+build:
+    stage: build
+    script:
+        - npm run build
+    only:
+        - master
+        - merge_requests

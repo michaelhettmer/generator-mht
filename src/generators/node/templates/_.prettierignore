@@ -1,3 +1,7 @@
+/.cache
+/build
 /coverage
 /dist
+/public
+
 node_modules

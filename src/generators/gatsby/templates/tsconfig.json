@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "declaration": false,
+        "baseUrl": "src",
+        "jsx": "react",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "noEmit": true,
+        "paths": {         
+               "~/*": ["*"]       
+         },
+        "plugins": [{ "name": "typescript-plugin-css-modules" }],
+        "target": "esnext",
+        "types": ["jest", "node"]
+    },
+    "files": ["jest.setup.ts"],
+    "include": ["src"],
+    "exclude": ["node_modules"]
+}

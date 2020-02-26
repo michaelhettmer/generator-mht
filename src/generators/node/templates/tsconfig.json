@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "allowJs": true,
+        "allowSyntheticDefaultImports": true,
         "declaration": true,
         "downlevelIteration": true,
         "esModuleInterop": true,
@@ -14,6 +15,7 @@
         "removeComments": true,
         "resolveJsonModule": true,
         "rootDir": "src",
+        "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
         "target": "es6"

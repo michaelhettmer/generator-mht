@@ -16,6 +16,8 @@ export type PromptKey = (
     | 'vscode'
     | 'latexDocumentName'
     | 'latexOutDir'
+    | 'redux'
+    | 'dockerTag'
 ) &
     string;
 
@@ -137,6 +139,24 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
         store: true,
         ...params,
     }),
+    redux: params =>
+        ({
+            name: 'redux',
+            message: 'Do you want to use redux?',
+            default: false,
+            type: 'confirm',
+            store: true,
+            ...params,
+        } as ConfirmQuestion),
+    dockerTag: params =>
+        ({
+            name: 'dockerTag',
+            message: 'How should the docker image be tagged?',
+            default: '',
+            type: 'input',
+            store: true,
+            ...params,
+        } as InputQuestion),
 };
 
 export default prompts;
