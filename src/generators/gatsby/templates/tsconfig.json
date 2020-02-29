@@ -12,7 +12,6 @@
         "target": "esnext",
         "types": ["jest", "node"]
     },
-    "files": ["jest.setup.ts"],
     "include": ["src"],
     "exclude": ["node_modules"]
 }
