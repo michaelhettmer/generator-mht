@@ -10,12 +10,12 @@
         <% if (isLib) { %><%- '"start": "npm run build && node dist/index.js",' %><% } %>
         "lint": "eslint . --ext '.js,.jsx,.ts,.tsx,.json,.jsonc'",
         "lint:circleci": "docker run --env-file .env -w /data --rm -v $(pwd):/data circleci/circleci-cli:0.1.6460-alpine config validate",
-        "lint:ci": "npm run lint --format junit --output-file ./reports/eslint/results.xml",
-        "lint:fix": "npm run lint --fix",
+        "lint:ci": "npm run lint -- --format junit --output-file ./reports/eslint/results.xml",
+        "lint:fix": "npm run lint -- --fix",
         "commitlint": "commitlint",
         "commitlint:ci": "commitlint-circle",
         "test": "jest",
-        "test:coverage": "npm run test --coverage --watchAll=false",
+        "test:coverage": "npm run test -- --coverage --watchAll=false",
         "test:ci": "CI=true JEST_JUNIT_OUTPUT_DIR=./reports/jest JEST_JUNIT_OUTPUT_NAME=results.xml npm run test:coverage --runInBand --reporters=\"default\" --reporters=\"jest-junit\"",
         "validate": "npm-run-all lint test build"
     },
