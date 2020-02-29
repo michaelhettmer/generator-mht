@@ -336,7 +336,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
             return;
         }
 
-        this.spawnCommandSync('git', ['add', '.']);
+        this.spawnCommandSync('git', ['add', 'README.md']);
         if (
             this.spawnCommandSync(
                 'git',
@@ -345,6 +345,24 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
                     ...(this.options['skip-signing'] ? [] : ['-S']),
                     '-m',
                     'feat: initial commit [skip release]',
+                ],
+                {
+                    stdio: [process.stderr],
+                },
+            )
+        )
+            this.log(chalk.green(`successfully commited generated files as initial commit`));
+        else this.log(chalk.red(`failed to commit generated files as initial commit`));
+
+        this.spawnCommandSync('git', ['add', '.']);
+        if (
+            this.spawnCommandSync(
+                'git',
+                [
+                    'commit',
+                    ...(this.options['skip-signing'] ? [] : ['-S']),
+                    '-m',
+                    'feat: add generated files from template [skip release]',
                 ],
                 {
                     stdio: [process.stderr],
