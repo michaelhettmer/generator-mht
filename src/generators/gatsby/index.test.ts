@@ -38,7 +38,6 @@ describe('mht:gatsby', () => {
             'jest.loadershim.js',
             'jest.preprocess.js',
             'jest.setup.js',
-            'jest.setup.ts',
             'nginx.conf',
         ]);
         assert.noFile('.gitlab-ci.yml');

@@ -35,7 +35,18 @@ export default class extends BaseGenerator<Answers> {
         await this.prompts(['redux', 'dockerTag']);
 
         this.cp('__mocks__');
-        this.cp('src');
+        this.cp('src/base');
+        this.cp('src/components');
+        this.cp('src/home/Home.tsx');
+        this.cp('src/home/index.ts');
+        if (this.answers.redux) {
+            this.cp('src/home/state.test.ts');
+            this.cp('src/home/state.ts');
+        }
+        this.cp('src/images');
+        this.cp('src/utils');
+        this.cp('src/global.css');
+        this.cp('src/modules.d.ts');
         this.cp('_.stylelintrc.json', '.stylelintrc.json');
         this.cp('.dockerignore');
         this.cp('Dockerfile');
@@ -47,7 +58,6 @@ export default class extends BaseGenerator<Answers> {
         this.cp('jest.loadershim.js');
         this.cp('jest.preprocess.js');
         this.cp('jest.setup.js');
-        this.cp('jest.setup.ts');
         this.cp('nginx.conf');
 
         this.ex('_.eslintrc.json', '.eslintrc.json');
