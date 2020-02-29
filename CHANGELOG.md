@@ -1,7 +1,6 @@
-## [1.7.2](https://github.com/MichaelHettmer/generator-mht/compare/v1.7.1...v1.7.2) (2020-02-29)
+## [1.7.3](https://github.com/MichaelHettmer/generator-mht/compare/v1.7.2...v1.7.3) (2020-02-29)
 
 
 ### Bug Fixes
 
-* **deps:** remove uuid dependency ([a4ff882](https://github.com/MichaelHettmer/generator-mht/commit/a4ff882ea040c80b67617a48a68c766a48c4706b))
-* **eslint:** add no-empty-function rule to node template ([e32caab](https://github.com/MichaelHettmer/generator-mht/commit/e32caab6f3cf9eca7c5cf2bc6a53363ea9d33ee4))
+* **config:** correct linting configuration and npm scripts ([67f2531](https://github.com/MichaelHettmer/generator-mht/commit/67f253152c9fb2647dd5cfd32f7528ff0d0f789d))
