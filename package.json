@@ -1,7 +1,7 @@
 {
     "name": "generator-mht",
     "version": "1.7.1",
-    "description": "All kinds of starter templates I need including CI/CD workflows for gitlab-ci and circleci.",
+    "description": "Battle-tested configurations and setups meet personal preference and the laziness of a programmer.",
     "keywords": [
         "yeoman-generator",
         "template",

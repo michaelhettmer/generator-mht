@@ -13,7 +13,6 @@
 [![MIT License][license-badge]][license]
 [![Semantic Release][release-badge]][release]
 [![Conventional Commits][commits-badge]][commits]
-
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg)](#contributors-)
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
@@ -102,11 +101,9 @@ Thanks goes to these people ([emoji key][emojis]):
 This project follows the [all-contributors][all-contributors] specification.
 Contributions of any kind welcome!
 
-The README.md format is heavily inspired by @kentcdodds. Thank you for your awesome work!
-
 ## LICENSE
 
-MIT
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <!-- prettier-ignore-start -->
 [npm]: https://www.npmjs.com
