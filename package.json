@@ -1,6 +1,6 @@
 {
     "name": "generator-mht",
-    "version": "1.7.1",
+    "version": "1.7.2",
     "description": "Battle-tested configurations and setups meet personal preference and the laziness of a programmer.",
     "keywords": [
         "yeoman-generator",
