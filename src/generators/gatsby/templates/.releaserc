@@ -1,0 +1,51 @@
+{
+    "branches": [
+        "master",
+        "next"
+    ],
+    "plugins": [
+        [
+            "@semantic-release/commit-analyzer",
+            {
+                "preset": "conventionalcommits"
+            }
+        ],
+        "@semantic-release/release-notes-generator",
+        "@semantic-release/changelog",
+        [
+            "@semantic-release/npm",
+            {
+                "npmPublish": false
+            }
+        ],
+        [
+            "semantic-release-docker",
+            {
+                "name": "<%= dockerUserName.toLowerCase() %>/<%= moduleName.toLowerCase() %>"
+            }
+        ],
+        [
+            "@semantic-release/git",
+            {
+                "assets": [
+                    "package.json",
+                    "CHANGELOG.md"
+                ]
+            }
+        ],
+        [
+            "@semantic-release/github",
+            {
+                "assets": [
+                    {
+                        "path": "docker_<%= dockerUserName.toLowerCase() %>_<%= moduleName.toLowerCase() %>.tar.gz",
+                        "label": "Docker image"
+                    }
+                ],
+                "assignees": [
+                    "<%= repoUserName %>"
+                ]
+            }
+        ]
+    ]
+}
