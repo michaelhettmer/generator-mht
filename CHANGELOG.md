@@ -1,6 +1,6 @@
-## [1.7.5](https://github.com/MichaelHettmer/generator-mht/compare/v1.7.4...v1.7.5) (2020-02-29)
+## [1.7.6](https://github.com/MichaelHettmer/generator-mht/compare/v1.7.5...v1.7.6) (2020-03-01)
 
 
 ### Bug Fixes
 
-* **gatsby:** remove wrong comma at the end of a json object ([03f3686](https://github.com/MichaelHettmer/generator-mht/commit/03f36866a47a2073cbc6a06fcf994be5b15f94de))
+* **gatsby:** escape ticks around commit in lint-staged config ([225f5b8](https://github.com/MichaelHettmer/generator-mht/commit/225f5b8e99ae4b6e2d4896d9ff7cb6194ac32d95))
