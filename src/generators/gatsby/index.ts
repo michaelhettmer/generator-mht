@@ -67,8 +67,8 @@ export default class extends BaseGenerator<Answers> {
 
     async install() {
         this.initGitSync();
-        this.npmInstallSync();
         this.initialCommitSync();
+        this.npmInstallSync();
 
         await this.createGitHubProjectAndPush();
         await this.followGitHubProjectWithCircleCI();
