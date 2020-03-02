@@ -1,6 +1,7 @@
-## [1.7.6](https://github.com/MichaelHettmer/generator-mht/compare/v1.7.5...v1.7.6) (2020-03-01)
+## [1.7.7](https://github.com/MichaelHettmer/generator-mht/compare/v1.7.6...v1.7.7) (2020-03-01)
 
 
 ### Bug Fixes
 
-* **gatsby:** escape ticks around commit in lint-staged config ([225f5b8](https://github.com/MichaelHettmer/generator-mht/commit/225f5b8e99ae4b6e2d4896d9ff7cb6194ac32d95))
+* **gatsby:** commit before first installation to prevent errors ([84c6b93](https://github.com/MichaelHettmer/generator-mht/commit/84c6b93f78f25f955db7d99760d5c9b58ad36386))
+* **gatsby:** use docker template inspired releaserc ([1724bf3](https://github.com/MichaelHettmer/generator-mht/commit/1724bf3eecef5ba0b824d566559d50e640754c14))
