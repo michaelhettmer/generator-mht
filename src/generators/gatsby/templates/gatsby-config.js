@@ -3,7 +3,7 @@
 module.exports = {
     siteMetadata: {
         author: `<%= authorName %>`,
-        defaultTitle: `<%= moduleName %>`
+        defaultTitle: `<%= moduleName %>`,
     },
     plugins: [
         'gatsby-plugin-remove-console',
