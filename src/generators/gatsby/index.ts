@@ -59,6 +59,7 @@ export default class extends BaseGenerator<Answers> {
         this.cp('jest.preprocess.js');
         this.cp('jest.setup.js');
         this.cp('nginx.conf');
+        this.cp('package-lock.json');
 
         this.ex('_.eslintrc.json', '.eslintrc.json');
         this.ex('_package.json', 'package.json');
