@@ -122,9 +122,9 @@
         "lint:styles": "stylelint './src/**/*.css' './src/**/*.scss'",
         "lint:styles:fix": "npm run lint:styles -- --fix",
         "lint:styles:ci": "npm run lint:styles --custom-formatter 'node_modules/stylelint-junit-formatter' > reports/stylelint/results.xml",
-        "lint": "npm run lint:code && npm run lint:styles",
-        "lint:fix": "npm run lint:code:fix && npm run lint:styles:fix",
-        "validate": "npm-run-all --parallel lint typecheck test",
+        "lint": "run-p lint:code lint:styles",
+        "lint:fix": "run-p lint:code:fix lint:styles:fix",
+        "validate": "run-p lint typecheck test",
         "postinstall": "gatsby telemetry --disable"
     },
     "browserslist": {
