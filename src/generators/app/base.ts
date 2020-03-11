@@ -11,6 +11,7 @@ export const envPath = findup('.env') ?? findup('.generator-mht/.env', { cwd: `$
 envPath && dotenv.config({ path: envPath });
 
 import Generator, { Question } from 'yeoman-generator';
+import { Conflicter, Adapter } from 'yeoman-merge-ui';
 import kebabCase from 'lodash.kebabcase';
 import axios, { AxiosResponse } from 'axios';
 import chalk from 'chalk';
@@ -55,6 +56,11 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
 
     constructor(args: string | string[], opts: {}) {
         super(args, opts);
+
+        this.env.adapter = new Adapter();
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.conflicter = new Conflicter(this.env.adapter, this.options.force);
 
         this.option('oss', {
             alias: 'o',
