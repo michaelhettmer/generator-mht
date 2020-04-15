@@ -7,7 +7,7 @@ export default class extends Generator {
     async prompting() {
         const lookupAsync = () => {
             return new Promise<{ [namespace: string]: GeneratorMeta }>((resolve, reject) => {
-                env.lookup(err => {
+                env.lookup((err) => {
                     if (err) return reject(err);
                     resolve(env.getGeneratorsMeta());
                 });
@@ -15,8 +15,8 @@ export default class extends Generator {
         };
         const generatorsMeta = await lookupAsync();
         const generators = Object.keys(generatorsMeta)
-            .filter(g => g.startsWith('mht:') && g !== 'mht:app')
-            .map(g => g.slice(4));
+            .filter((g) => g.startsWith('mht:') && g !== 'mht:app')
+            .map((g) => g.slice(4));
 
         const answers = await this.prompt([
             {
