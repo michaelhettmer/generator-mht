@@ -3,3 +3,5 @@ describe('initial placeholder tests', () => {
         expect(true).toBeTruthy();
     });
 });
+
+export default {}
