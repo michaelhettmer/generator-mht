@@ -57,10 +57,12 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
     constructor(args: string | string[], opts: {}) {
         super(args, opts);
 
-        this.env.adapter = new Adapter();
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        this.conflicter = new Conflicter(this.env.adapter, this.options.force);
+        if (process.env.ENABLE_EXPERIMENTAL) {
+            this.env.adapter = new Adapter();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.conflicter = new Conflicter(this.env.adapter, this.options.force);
+        }
 
         this.option('oss', {
             alias: 'o',
@@ -342,23 +344,22 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
             return;
         }
 
-        this.spawnCommandSync('git', ['add', '.']);
-        if (
-            this.spawnCommandSync(
-                'git',
-                [
-                    'commit',
-                    ...(this.options['skip-signing'] ? [] : ['-S']),
-                    '-m',
-                    'feat: initial commit [skip release]',
-                ],
-                {
-                    stdio: [process.stderr],
-                },
+        const commit = (files: string, message: string) => {
+            this.spawnCommandSync('git', ['add', files]);
+            if (
+                this.spawnCommandSync(
+                    'git',
+                    ['commit', ...(this.options['skip-signing'] ? [] : ['-S']), '-m', message],
+                    {
+                        stdio: [process.stderr],
+                    },
+                )
             )
-        )
-            this.log(chalk.green(`successfully commited generated files as initial commit`));
-        else this.log(chalk.red(`failed to commit generated files as initial commit`));
+                this.log(chalk.green(`successfully commited '${files}' - '${message}'`));
+            else this.log(chalk.red(`failed to commit '${files}' - '${message}`));
+        };
+        commit('README.md', 'feat: initial commit [skip release]');
+        commit('.', 'feat: add project base [skip release]');
     };
 
     protected npmInstallSync = () => !this.options['skip-installation'] && this.spawnCommandSync('npm', ['install']);
