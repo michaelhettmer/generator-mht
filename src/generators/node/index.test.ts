@@ -25,6 +25,8 @@ export const files = [
     'lint-staged.config.js',
     'tsconfig.json',
     '.vscode',
+    'src/index.ts',
+    'src/index.test.ts',
     '.github',
 ];
 
