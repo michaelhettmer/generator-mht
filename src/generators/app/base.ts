@@ -158,7 +158,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         this.answers = {
             ...this.answers,
             ...(await this.prompt(
-                promptsToExecute.map(prompt =>
+                promptsToExecute.map((prompt) =>
                     typeof prompt === 'string' ? createPrompt[prompt]({ default: this.answers[prompt] }) : prompt,
                 ),
             )),

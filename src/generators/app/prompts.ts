@@ -22,7 +22,7 @@ export type PromptKey = (
     string;
 
 const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
-    ci: params =>
+    ci: (params) =>
         ({
             name: 'ci',
             message: 'Select a CI provider',
@@ -32,7 +32,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as ListQuestion),
-    repo: params =>
+    repo: (params) =>
         ({
             name: 'repo',
             message: 'Select a repository provider',
@@ -42,7 +42,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as ListQuestion),
-    repoUserName: params =>
+    repoUserName: (params) =>
         ({
             name: 'repoUserName',
             message: `What is your user name in this repository?`,
@@ -51,7 +51,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as InputQuestion),
-    repoName: params =>
+    repoName: (params) =>
         ({
             name: 'repoName',
             message: 'What do you want to name your repository?',
@@ -60,7 +60,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as InputQuestion),
-    dockerUserName: params =>
+    dockerUserName: (params) =>
         ({
             name: 'dockerUserName',
             message: `What is your docker user name?`,
@@ -69,7 +69,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as InputQuestion),
-    authorName: params =>
+    authorName: (params) =>
         ({
             name: 'authorName',
             message: `What is your real name?`,
@@ -78,7 +78,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as InputQuestion),
-    moduleName: params =>
+    moduleName: (params) =>
         ({
             name: 'moduleName',
             message: 'What do you want to name your module?',
@@ -87,7 +87,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as InputQuestion),
-    description: params =>
+    description: (params) =>
         ({
             name: 'description',
             message: 'What does your module do in one sentence?',
@@ -96,7 +96,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as InputQuestion),
-    isLib: params =>
+    isLib: (params) =>
         ({
             name: 'isLib',
             message: 'Is your module a library?',
@@ -105,7 +105,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as ConfirmQuestion),
-    devDep: params =>
+    devDep: (params) =>
         ({
             name: 'devDep',
             message: 'Should your module be installed as a devDependency?',
@@ -114,7 +114,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as ConfirmQuestion),
-    vscode: params =>
+    vscode: (params) =>
         ({
             name: 'vscode',
             message: 'Do you use VSCode?',
@@ -123,7 +123,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as ConfirmQuestion),
-    latexDocumentName: params => ({
+    latexDocumentName: (params) => ({
         name: 'latexDocumentName',
         message: 'What should the name of the initial document be?',
         default: 'document',
@@ -131,7 +131,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
         store: true,
         ...params,
     }),
-    latexOutDir: params => ({
+    latexOutDir: (params) => ({
         name: 'latexOutDir',
         message: 'Which directory should be used for generated files?',
         default: 'out',
@@ -139,7 +139,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
         store: true,
         ...params,
     }),
-    redux: params =>
+    redux: (params) =>
         ({
             name: 'redux',
             message: 'Do you want to use redux?',
@@ -148,7 +148,7 @@ const prompts: { [key in PromptKey]: ({}: Question) => Question } = {
             store: true,
             ...params,
         } as ConfirmQuestion),
-    dockerTag: params =>
+    dockerTag: (params) =>
         ({
             name: 'dockerTag',
             message: 'How should the docker image be tagged?',

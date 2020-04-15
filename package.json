@@ -28,7 +28,7 @@
         "link": "npm link",
         "start": "npm run build && npm link && yo mht",
         "lint": "eslint . --ext '.js,.jsx,.ts,.tsx,.json,.jsonc'",
-        "lint:circleci": "docker run --env-file .env -w /data --rm -v $(pwd):/data circleci/circleci-cli:0.1.6648-alpine config validate",
+        "lint:circleci": "docker run -w /data --rm -v $(pwd):/data circleci/circleci-cli:0.1.6949-alpine config validate",
         "lint:ejs": "ejslint src/**/templates/**/*",
         "lint:ci": "npm run lint -- --format junit --output-file ./reports/eslint/results.xml",
         "lint:fix": "npm run lint -- --fix",
