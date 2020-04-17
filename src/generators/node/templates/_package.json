@@ -19,6 +19,9 @@
         "test:ci": "CI=true JEST_JUNIT_OUTPUT_DIR=./reports/jest JEST_JUNIT_OUTPUT_NAME=results.xml npm run test:coverage --runInBand --reporters=\"default\" --reporters=\"jest-junit\"",
         "validate": "npm-run-all lint test build"
     },
+    "dependencies": {
+        "tslib": "1.11.1"
+    },
     "devDependencies": {
         "@types/jest": "25.1.2",
         "@typescript-eslint/eslint-plugin": "2.19.2",
