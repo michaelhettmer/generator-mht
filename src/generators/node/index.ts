@@ -44,6 +44,7 @@ export default class extends BaseGenerator<Answers> {
         this.cps('CODE_OF_CONDUCT.md');
         this.cps('LICENSE');
         this.cps('README.md');
+        this.cp('src', 'src');
         this.cp('_.eslintignore', '.eslintignore');
         this.cp('_.eslintrc.json', '.eslintrc.json');
         this.cp('_.prettierignore', '.prettierignore');
