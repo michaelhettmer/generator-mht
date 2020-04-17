@@ -1,32 +1,9 @@
 version: 2.1
 
 defaults: &defaults
-    working_directory: ~/repo
+    working_directory: ~/project
     docker:
         - image: circleci/node:12.16.2
-
-whitelist: &whitelist
-    paths:
-        - .git/*
-        - .npmignore
-        - coverage/*
-        - generators/*
-        - node_modules/*
-        - reports/*
-        - src/*
-        - .commitlintrc.js
-        - .eslintignore
-        - .eslintrc.js
-        - .huskyrc.js
-        - .prettierignore
-        - .prettierrc.js
-        - .releaserc
-        - jest.config.js
-        - LICENSE.md
-        - lint-staged.config.js
-        - package.json
-        - README.md
-        - tsconfig.json
 
 orbs:
     codecov: codecov/codecov@1.0.5
@@ -48,14 +25,15 @@ jobs:
                       - node_modules
                   key: v1-dependencies-{{ checksum "package.json" }}
             - persist_to_workspace:
-                  root: ~/repo
-                  <<: *whitelist
+                  root: ~/project
+                  paths:
+                      - .
 
     commitlint:
         <<: *defaults
         steps:
             - attach_workspace:
-                  at: ~/repo
+                  at: ~/project
             - run:
                   name: Lint relevant commit messages
                   command: npm run commitlint:ci
@@ -64,12 +42,12 @@ jobs:
         <<: *defaults
         steps:
             - attach_workspace:
-                  at: ~/repo
+                  at: ~/project
             - run:
                   name: Lint TypeScript code
                   command: npm run lint:ci
             - persist_to_workspace:
-                  root: ~/repo
+                  root: ~/project
                   paths:
                       - reports/eslint
 
@@ -77,7 +55,7 @@ jobs:
         <<: *defaults
         steps:
             - attach_workspace:
-                  at: ~/repo
+                  at: ~/project
             - run:
                   name: Lint ejs template files
                   command: npm run lint:ejs
@@ -86,13 +64,14 @@ jobs:
         <<: *defaults
         steps:
             - attach_workspace:
-                  at: ~/repo
+                  at: ~/project
             - run:
                   name: Build TypeScript code
                   command: npm run build
             - persist_to_workspace:
-                  root: ~/repo
-                  <<: *whitelist
+                  root: ~/project
+                  paths:
+                      - .
             - store_test_results:
                   path: reports
             - store_artifacts:
@@ -102,12 +81,12 @@ jobs:
         <<: *defaults
         steps:
             - attach_workspace:
-                  at: ~/repo
+                  at: ~/project
             - run:
                   name: Test TypeScript code
                   command: npm run test:ci
             - persist_to_workspace:
-                  root: ~/repo
+                  root: ~/project
                   paths:
                       - coverage
                       - reports/jest
@@ -116,7 +95,7 @@ jobs:
         <<: *defaults
         steps:
             - attach_workspace:
-                  at: ~/repo
+                  at: ~/project
             - codecov/upload:
                   file: ./coverage/lcov.info
 
@@ -124,7 +103,7 @@ jobs:
         <<: *defaults
         steps:
             - attach_workspace:
-                  at: ~/repo
+                  at: ~/project
             - run: npx semantic-release
 
 workflows:
