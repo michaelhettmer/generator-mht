@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.1...v1.8.2) (2020-04-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency yeoman-generator to v4.9.0 ([a727020](https://github.com/MichaelHettmer/generator-mht/commit/a72702026e699b9f222ea884bee65f4a3da61370))
+
 ## [1.8.1](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.0...v1.8.1) (2020-04-22)
 
 
