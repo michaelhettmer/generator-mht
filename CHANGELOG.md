@@ -1,3 +1,10 @@
+## [1.8.5](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.4...v1.8.5) (2020-06-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency chalk to v4.1.0 ([6a9c894](https://github.com/MichaelHettmer/generator-mht/commit/6a9c894317e8e36d7c28cf6af0152f06130d9245))
+
 ## [1.8.4](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.3...v1.8.4) (2020-05-11)
 
 
