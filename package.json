@@ -90,7 +90,7 @@
         "rimraf": "3.0.2",
         "semantic-release": "17.1.1",
         "ts-jest": "26.1.2",
-        "typescript": "3.9.6",
+        "typescript": "3.9.7",
         "yeoman-assert": "3.1.1",
         "yeoman-test": "2.7.0",
         "yo": "3.1.1"
