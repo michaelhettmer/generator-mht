@@ -12,7 +12,7 @@ export interface Answers extends CommonAnswers {
 }
 
 export default class extends BaseGenerator<Answers> {
-    initializing() {
+    initializing(): void {
         const done = this.async();
         env.run(
             require.resolve('../node'),
@@ -24,7 +24,7 @@ export default class extends BaseGenerator<Answers> {
         );
     }
 
-    async prompting() {
+    async prompting(): Promise<void> {
         this.answers.dockerUserName = this.answers.repoUserName.toLowerCase().replace(/\s/g, '');
         await this.prompts(['dockerUserName']);
         this.answers.redux = true;
@@ -66,7 +66,7 @@ export default class extends BaseGenerator<Answers> {
         this.ex('tsconfig.json');
     }
 
-    async install() {
+    async install(): Promise<void> {
         this.initGitSync();
         this.initialCommitSync();
         this.npmInstallSync();
@@ -75,7 +75,7 @@ export default class extends BaseGenerator<Answers> {
         await this.followGitHubProjectWithCircleCI();
     }
 
-    end() {
+    end(): void {
         if (this.answers.repo === 'GitHub') {
             this.log('make sure you configure all used bots / services manually, if it will not happen automatically');
             this.log('https://github.com/settings/installations');

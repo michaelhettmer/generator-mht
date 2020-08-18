@@ -1,8 +1,9 @@
 import emptyLogger from './emptyLogger';
 
 export class EmptyAdapter {
-    diff = () => '';
-    prompt = async () => '';
+    diff = (): string => '';
+    prompt = async (): Promise<string> => '';
+    // eslint-disable-next-line @typescript-eslint/ban-types
     log: {} | undefined;
 }
 
