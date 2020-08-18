@@ -7,12 +7,13 @@ export interface Answers extends CommonAnswers {
 }
 
 export default class extends BaseGenerator<Answers> {
+    // eslint-disable-next-line @typescript-eslint/ban-types
     constructor(args: string | string[], opts: {}) {
         super(args, opts);
         this.answers.isLib = false;
     }
 
-    async prompting() {
+    async prompting(): Promise<void> {
         this.printOptions();
 
         if (this.options.oss) {
@@ -31,7 +32,7 @@ export default class extends BaseGenerator<Answers> {
         }
     }
 
-    async writing() {
+    async writing(): Promise<void> {
         const gitignore = await this.fetchGitIgnore('node');
         gitignore && this.fs.write(this.destinationPath('.gitignore'), gitignore);
 
@@ -66,7 +67,7 @@ export default class extends BaseGenerator<Answers> {
         }
     }
 
-    async install() {
+    async install(): Promise<void> {
         this.initGitSync();
         this.npmInstallSync();
         this.initialCommitSync();
@@ -75,7 +76,7 @@ export default class extends BaseGenerator<Answers> {
         await this.followGitHubProjectWithCircleCI();
     }
 
-    end() {
+    end(): void {
         if (this.answers.repo === 'GitHub') {
             this.log('make sure you configure all used bots / services manually, if it will not happen automatically');
             this.log('https://github.com/settings/installations');

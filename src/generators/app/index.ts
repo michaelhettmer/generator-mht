@@ -4,7 +4,7 @@ import yeoman, { GeneratorMeta } from 'yeoman-environment';
 const env = yeoman.createEnv();
 
 export default class extends Generator {
-    async prompting() {
+    async prompting(): Promise<void> {
         const lookupAsync = () => {
             return new Promise<{ [namespace: string]: GeneratorMeta }>((resolve, reject) => {
                 env.lookup((err) => {

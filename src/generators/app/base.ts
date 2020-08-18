@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 import dotenv from 'dotenv';
@@ -13,7 +12,7 @@ envPath && dotenv.config({ path: envPath });
 import Generator, { Question } from 'yeoman-generator';
 import { Conflicter, Adapter } from 'yeoman-merge-ui';
 import kebabCase from 'lodash.kebabcase';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 import chalk from 'chalk';
 import { table } from 'table';
 import createPrompt, { PromptKey } from './prompts';
@@ -53,14 +52,14 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         devDep: false,
         vscode: true,
     } as TAnswers;
+    conflicter: unknown;
 
+    // eslint-disable-next-line @typescript-eslint/ban-types
     constructor(args: string | string[], opts: {}) {
         super(args, opts);
 
         if (process.env.ENABLE_EXPERIMENTAL) {
             this.env.adapter = new Adapter();
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            // @ts-ignore
             this.conflicter = new Conflicter(this.env.adapter, this.options.force);
         }
 
@@ -110,7 +109,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         else this.log(chalk.red(`no environment setup found`));
     }
 
-    protected printOptions = () => {
+    protected printOptions = (): void => {
         this.log(`started ${this.rootGeneratorName()} v${this.rootGeneratorVersion()} with the following options:`);
         const data = [
             [chalk.bold('option'), chalk.bold('value')],
@@ -129,17 +128,17 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         repositoryUrl: RepositoryUrls[this.answers.repo],
     });
 
-    protected cp = (from: string, to: string = from) =>
+    protected cp = (from: string, to: string = from): void =>
         this.fs.copyTpl(this.templatePath(from), this.destinationPath(to), this.getContext(), {});
 
-    protected cps = (from: string, to: string = from) => this.cp(`../../app/templates/${from}`, to);
+    protected cps = (from: string, to: string = from): void => this.cp(`../../app/templates/${from}`, to);
 
-    protected cpr = (from: string, to: string = from) => {
+    protected cpr = (from: string, to: string = from): void => {
         fs.unlinkSync(this.destinationPath(to));
         this.cp(from, to);
     };
 
-    protected ex = (from: string, to: string = from) => {
+    protected ex = (from: string, to: string = from): void => {
         const tmpName = `__temp__${from}`;
         this.cp(from, tmpName);
         const content = this.fs.readJSON(this.destinationPath(tmpName)) ?? {};
@@ -153,7 +152,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         );
     };
 
-    protected exs = (from: string, to: string = from) => {
+    protected exs = (from: string, to: string = from): void => {
         this.cps(from, to);
         const tmpName = `__temp__${from}`;
         this.cp(from, tmpName);
@@ -162,7 +161,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         this.fs.delete(this.destinationPath(tmpName));
     };
 
-    protected prompts = async (promptsToExecute: (PromptKey | Question)[]) => {
+    protected prompts = async (promptsToExecute: (PromptKey | Question)[]): Promise<TAnswers> => {
         this.answers = {
             ...this.answers,
             ...(await this.prompt(
@@ -174,8 +173,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         return this.answers;
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    protected logAxiosError = (error: any, msg: string | undefined = undefined) => {
+    protected logAxiosError = (error: AxiosError, msg: string | undefined = undefined): void => {
         msg && this.log(chalk.red(msg));
         if (error.response) {
             this.log(chalk.red(`data: ${error.response.data}`));
@@ -185,14 +183,14 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         else this.log(chalk.red(`data: ${error.message}`));
     };
 
-    protected logAxiosUnexpectedAnswer = (result: AxiosResponse, msg: string | undefined = undefined) => {
+    protected logAxiosUnexpectedAnswer = (result: AxiosResponse, msg: string | undefined = undefined): void => {
         msg && this.log(chalk.red(msg));
         this.log(chalk.red(`status: ${result.status}`));
         this.log(chalk.red(`statusText: ${result.statusText}`));
         this.log(chalk.red(`cloneUrl: ${result.data.ssh_url}`));
     };
 
-    protected pushGitToRemote = async (ssh_url: string) => {
+    protected pushGitToRemote = async (ssh_url: string): Promise<boolean> => {
         if (ssh_url) {
             this.spawnCommandSync('git', ['remote', 'add', 'origin', ssh_url]);
             this.log(chalk.green(`successfully set remote origin to ${ssh_url}`));
@@ -200,8 +198,8 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
                 this.log(chalk.green(`successfully pushed generated files as initial commit`));
                 return true;
             } else this.log(chalk.red(`failed to push generated files as initial commit`));
-            return false;
         }
+        return false;
     };
 
     protected checkGitHubProjectExists = async (): Promise<boolean> => {
@@ -281,7 +279,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         return undefined;
     };
 
-    protected followGitHubProjectWithCircleCI = async () => {
+    protected followGitHubProjectWithCircleCI = async (): Promise<void> => {
         if (this.options.local) {
             this.log(chalk.yellow(`skip follow GitHub project on CircleCI because local option is given`));
             return;
@@ -329,7 +327,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         }
     };
 
-    protected initGitSync = () => {
+    protected initGitSync = (): void => {
         if (this.options['skip-git']) {
             this.log(chalk.yellow(`skip initializing git`));
             return;
@@ -338,7 +336,7 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         this.spawnCommandSync('git', ['init']);
     };
 
-    protected initialCommitSync = () => {
+    protected initialCommitSync = (): void => {
         if (this.options['skip-git']) {
             this.log(chalk.yellow(`skip initial commit to git because it was not initialized`));
             return;
@@ -362,7 +360,8 @@ export default class<TAnswers extends CommonAnswers = CommonAnswers> extends Gen
         commit('.', 'feat: add project base [skip release]');
     };
 
-    protected npmInstallSync = () => !this.options['skip-installation'] && this.spawnCommandSync('npm', ['install']);
+    protected npmInstallSync = (): void =>
+        !this.options['skip-installation'] && this.spawnCommandSync('npm', ['install']);
 
     protected fetchGitIgnore = async (type: string): Promise<string | undefined> => {
         try {

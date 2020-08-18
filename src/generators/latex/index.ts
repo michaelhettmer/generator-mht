@@ -7,13 +7,14 @@ export interface Answers extends CommonAnswers {
 }
 
 export default class extends BaseGenerator<Answers> {
+    // eslint-disable-next-line @typescript-eslint/ban-types
     constructor(args: string | string[], opts: {}) {
         super(args, opts);
         this.answers.document = 'document';
         this.answers.outDirectory = 'out';
     }
 
-    async prompting() {
+    async prompting(): Promise<void> {
         this.printOptions();
 
         if (this.options.oss) {
@@ -37,7 +38,7 @@ export default class extends BaseGenerator<Answers> {
         }
     }
 
-    async writing() {
+    async writing(): Promise<void> {
         this.cps('.all-contributorsrc');
         this.cps('.commitlintrc.js');
         this.cps('.gitattributes');
@@ -63,14 +64,14 @@ export default class extends BaseGenerator<Answers> {
         if (this.answers.repo === 'GitHub') this.cps('.github');
     }
 
-    async installing() {
+    async installing(): Promise<void> {
         this.initGitSync();
 
         await this.createGitHubProjectAndPush();
         await this.followGitHubProjectWithCircleCI();
     }
 
-    end() {
+    end(): void {
         if (this.answers.repo === 'GitHub') {
             this.log('make sure you configure all used bots / services manually, if it will not happen automatically');
             this.log('https://github.com/settings/installations');
