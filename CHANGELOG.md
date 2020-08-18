@@ -1,3 +1,10 @@
+## [1.8.7](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.6...v1.8.7) (2020-08-18)
+
+
+### Bug Fixes
+
+* **eslint:** fix new rules of eslint v3 ([6592c76](https://github.com/MichaelHettmer/generator-mht/commit/6592c76ac407f81e2c2bdf8991f2cc8f3b18b2c3))
+
 ## [1.8.6](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.5...v1.8.6) (2020-06-26)
 
 
