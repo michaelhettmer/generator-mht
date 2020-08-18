@@ -1,12 +1,12 @@
 version: 2.1
 
 orbs:
-    docker: circleci/docker@1.0.1
+    docker: circleci/docker@1.4.0
 
 jobs:
     checkout:
         docker:
-            - image: circleci/node:12.16.2
+            - image: circleci/node:12.18.3
         steps:
             - checkout
             - restore_cache:
@@ -27,7 +27,7 @@ jobs:
 
     build:
         docker:
-            - image: circleci/node:12.16.2
+            - image: circleci/node:12.18.3
         steps:
             - attach_workspace:
                   at: ~/project
@@ -46,7 +46,7 @@ jobs:
 
     release:
         docker:
-            - image: circleci/node:12.16.2
+            - image: circleci/node:12.18.3
         steps:
             - attach_workspace:
                   at: ~/project

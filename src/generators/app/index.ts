@@ -7,7 +7,7 @@ export default class extends Generator {
     async prompting() {
         const lookupAsync = () => {
             return new Promise<{ [namespace: string]: GeneratorMeta }>((resolve, reject) => {
-                env.lookup((err) => {
+                env.lookup({}, (err) => {
                     if (err) return reject(err);
                     resolve(env.getGeneratorsMeta());
                 });
