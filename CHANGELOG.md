@@ -1,3 +1,10 @@
+## [1.8.8](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.7...v1.8.8) (2020-08-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v0.20.0 ([430228c](https://github.com/MichaelHettmer/generator-mht/commit/430228c16c8452f9e3557c2d98c30bfd077e58bd))
+
 ## [1.8.7](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.6...v1.8.7) (2020-08-18)
 
 
