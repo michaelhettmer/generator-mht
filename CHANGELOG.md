@@ -1,3 +1,10 @@
+## [1.8.9](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.8...v1.8.9) (2020-08-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency table to v6 ([70235b0](https://github.com/MichaelHettmer/generator-mht/commit/70235b08590269edf5ad0153b25818adc5052870))
+
 ## [1.8.8](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.7...v1.8.8) (2020-08-21)
 
 
