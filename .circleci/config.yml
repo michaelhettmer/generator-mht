@@ -6,7 +6,7 @@ defaults: &defaults
         - image: circleci/node:12.19.1
 
 orbs:
-    codecov: codecov/codecov@1.1.1
+    codecov: codecov/codecov@1.1.2
 
 jobs:
     checkout:
