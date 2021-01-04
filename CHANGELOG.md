@@ -1,3 +1,10 @@
+## [1.8.15](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.14...v1.8.15) (2021-01-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency table to v6.0.7 ([f387bdd](https://github.com/MichaelHettmer/generator-mht/commit/f387bddadd86db8f3a3367c3ace4ac37bfde946e))
+
 ## [1.8.14](https://github.com/MichaelHettmer/generator-mht/compare/v1.8.13...v1.8.14) (2021-01-02)
 
 
