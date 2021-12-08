@@ -45,7 +45,7 @@
         "deepmerge": "4.2.2",
         "dotenv": "8.6.0",
         "find-config": "1.0.0",
-        "findup-sync": "4.0.0",
+        "findup-sync": "5.0.0",
         "lodash.kebabcase": "4.1.1",
         "lodash.startcase": "4.4.0",
         "table": "6.7.5",
