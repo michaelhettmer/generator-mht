@@ -61,7 +61,7 @@
         "@types/findup-sync": "4.0.2",
         "@types/fs-extra": "9.0.13",
         "@types/jest": "27.0.3",
-        "@types/lodash.kebabcase": "4.1.6",
+        "@types/lodash.kebabcase": "4.1.7",
         "@types/lodash.startcase": "4.4.6",
         "@types/table": "6.0.0",
         "@types/yeoman-assert": "3.1.1",
