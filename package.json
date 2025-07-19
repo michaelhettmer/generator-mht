@@ -64,7 +64,7 @@
         "@types/lodash.kebabcase": "4.1.6",
         "@types/lodash.startcase": "4.4.6",
         "@types/table": "6.0.0",
-        "@types/yeoman-assert": "3.1.1",
+        "@types/yeoman-assert": "3.1.4",
         "@types/yeoman-environment": "2.3.3",
         "@types/yeoman-generator": "3.1.4",
         "@types/yeoman-test": "4.0.3",
