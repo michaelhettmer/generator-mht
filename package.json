@@ -40,7 +40,7 @@
         "validate": "npm-run-all lint lint:circleci lint:ejs test"
     },
     "dependencies": {
-        "axios": "0.26.1",
+        "axios": "1.12.0",
         "chalk": "4.1.2",
         "deepmerge": "4.2.2",
         "dotenv": "8.6.0",
@@ -92,7 +92,7 @@
         "ts-jest": "27.1.4",
         "typescript": "4.3.5",
         "yeoman-assert": "3.1.1",
-        "yeoman-test": "4.0.2",
+        "yeoman-test": "10.1.1",
         "yo": "3.1.1"
     },
     "engines": {
